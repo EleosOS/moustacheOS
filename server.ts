@@ -8,7 +8,7 @@ const port: number | string = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-app.use('/', UpvotePath);
+app.use('/upvote', UpvotePath);
 
 app.listen(port, () => {
     signale.start(`Listening at ${port}`);
