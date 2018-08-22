@@ -10,6 +10,6 @@ app.use(bodyParser.json());
 
 app.use('/upvote', UpvotePath);
 
-app.listen(port, () => {
-    signale.start(`Listening at ${port}`);
+const listener = app.listen(port, () => {
+    signale.start(`Listening at ${listener.address().address}`);
 });
