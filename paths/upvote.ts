@@ -15,7 +15,7 @@ class UpvotePathClass {
 
     private upvote(req: Request, res: Response) {
         if (req.headers.authorization !== config.authorization) {
-            signale.fatal('A request to /upvote arrived with the wrong authorization header...')
+            return signale.fatal('A request to /upvote arrived with the wrong authorization header...')
         }
 
         signale.start({prefix: '[upvote]', message: `Upvote recieved! Searching for ${req.body.user}...`, suffix: req.body.user});
@@ -42,7 +42,7 @@ class UpvotePathClass {
             this.setReminder(upvoter);
 
             signale.complete({prefix: '[upvote]', message: 'Sending message to #upvote-army.', suffix: req.body.user});
-            bot.createMessage(config.upvoterChannel, msg);
+            return bot.createMessage(config.upvoterChannel, msg);
         }
     }
 
@@ -54,7 +54,7 @@ class UpvotePathClass {
                 const channel = await upvoter.user.getDMChannel();
 
                 channel.createMessage('Hello! You can upvote Ease again.');
-                signale.success({prefix: '[upvote]', message: `Sent a DM to ${upvoter.username}.`, suffix: upvoter.id});
+                return signale.success({prefix: '[upvote]', message: `Sent a DM to ${upvoter.username}.`, suffix: upvoter.id});
             } catch (e) {
                 signale.error({prefix: '[upvote]', message: `${upvoter.username} probably has their DMs disabled.`, suffix: upvoter.id});
                 signale.error(e);
