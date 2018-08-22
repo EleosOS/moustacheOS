@@ -14,6 +14,10 @@ class UpvotePathClass {
     }
 
     private upvote(req: Request, res: Response) {
+        if (req.headers.authorization !== config.authorization) {
+            signale.fatal('A request to /upvote arrived with the wrong authorization header...')
+        }
+
         signale.start({prefix: '[upvote]', message: `Upvote recieved! Searching for ${req.body.user}...`, suffix: req.body.user});
 
         const ease = bot.guilds.get('365236789855649814');

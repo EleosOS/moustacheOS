@@ -2,6 +2,7 @@
 
 export const config = {
     token: '',
+    authorization: '',
     upvoterChannel: '417085568367722498',
     upvoterRole: '417407477974433802',
 };
