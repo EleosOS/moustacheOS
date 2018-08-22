@@ -11,10 +11,6 @@ app.use(bodyParser.json());
 
 app.use('/upvote', UpvotePath);
 
-app.get('/upvote', (req, res) => {
-    res.send('hi');
-});
-
 app.get('/', (req, res) => {
     res.send(shitArt);
 });
