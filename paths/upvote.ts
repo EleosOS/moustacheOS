@@ -14,9 +14,9 @@ class UpvotePathClass {
     }
 
     private upvote(req: Request, res: Response) {
-        /*if (config.authorization.length > 0 && req.headers.authorization !== config.authorization) {
+        if (config.authorization.length > 0 && req.headers.authorization !== config.authorization) {
             return signale.fatal('A request to /upvote arrived with the wrong authorization header...\n' + req.headers.authorization)
-        }*/
+        }
 
         signale.start({prefix: '[upvote]', message: `Upvote recieved! Searching for ${req.body.user}...`});
 
