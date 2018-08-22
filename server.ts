@@ -16,5 +16,5 @@ app.get('/', (req, res) => {
 });
 
 const listener = app.listen(port, () => {
-    signale.start(`Listening at ${listener.address().address} PORT: ${port}`);
+    signale.start(`Listening at port ${port}`);
 });
