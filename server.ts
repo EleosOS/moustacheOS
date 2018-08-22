@@ -5,7 +5,7 @@ import { UpvotePath } from './paths/index';
 
 const app = express();
 const port: number | string = process.env.PORT || 3000;
-const shitArt: string = `(   )\n(   ) (\n) _   )\n( \\_\n_(_\\ \\)__\n(____\\___))`;
+const shitArt: string = `<img src="https://ih0.redbubble.net/image.366213776.3101/flat,800x800,075,f.jpg" alt="shit">`;
 
 app.use(bodyParser.json());
 
