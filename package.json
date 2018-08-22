@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc",
-    "start": "tsc && node ./build/server.js"
+    "compile": "tsc",
+    "start": "node ./build/server.js",
+    "pm2restart": "pm2 restart ./build/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,7 @@
     "express": "^4.16.3",
     "signale": "^1.2.1",
     "tslint": "^5.11.0",
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.1",
+    "pm2": "^3.0.3"
   }
 }
