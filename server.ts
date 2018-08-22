@@ -9,10 +9,10 @@ const shitArt: string = `<img src="https://ih0.redbubble.net/image.366213776.310
 
 app.use(bodyParser.json());
 
-/*app.use('/upvote', UpvotePath);*/
+app.use('/upvote', UpvotePath);
 
-app.post('/upvote', (req, res) => {
-    console.log(req);
+app.get('/upvote', (req, res) => {
+    res.send('hi');
 });
 
 app.get('/', (req, res) => {

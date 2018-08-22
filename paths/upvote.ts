@@ -10,7 +10,7 @@ class UpvotePathClass {
     constructor() {
         this.router = Router();
 
-        this.router.get('/', this.upvote.bind(this));
+        this.router.post('/', this.upvote.bind(this));
     }
 
     private upvote(req: Request, res: Response) {
