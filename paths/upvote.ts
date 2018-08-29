@@ -92,14 +92,14 @@ class UpvotePathClass {
      * @param {boolean} isWeekend
      * @memberof UpvotePathClass
      */
-    private sendUpvoteMessage(upvoter: Member, isWeekend: boolean): void {
+    private async sendUpvoteMessage(upvoter: Member, isWeekend: boolean) {
         let msg: string;
 
         if (isWeekend) {
-            const points = Points.handle(upvoter.id, 2);
+            const points = await Points.handle(upvoter.id, 2);
             msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL during an active voting multiplier! Upvotes: ${points}`;
         } else {
-            const points = Points.handle(upvoter.id, 1);
+            const points = await Points.handle(upvoter.id, 1);
             msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL! Upvotes: ${points}`;
         }
 

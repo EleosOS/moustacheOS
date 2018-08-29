@@ -46,7 +46,7 @@ class PointsHandler {
     public increment(userPoints: any, amount: number) {
         // I know userPoints is a Document but TypeScript wont let me access its properties, because it doesn't know they exist.
         // tslint:disable-next-line:no-unused-expression goddamit tslint
-        userPoints.points + amount;
+        userPoints.points += amount;
         userPoints.save();
         return userPoints;
     }
