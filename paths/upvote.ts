@@ -45,20 +45,9 @@ class UpvotePathClass {
             signale.pending({prefix: '[upvote]', message: `${upvoter.username} is on the server...`});
             signale.pending({prefix: '[upvote]', message: `Adding role to ${upvoter.username}...`});
             upvoter.addRole(config.upvoterRole, 'Upvote on DBL');
-            let msg: string;
-
-            if (req.body.isWeekend) {
-                const points = Points.handle(req.body.user, 2);
-                msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL during an active voting multiplier! Upvotes: ${points}`;
-            } else {
-                const points = Points.handle(req.body.user, 1);
-                msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL! Upvotes: ${points}`;
-            }
 
             this.setReminder(upvoter);
-
-            signale.complete({prefix: '[upvote]', message: 'Sending message to #upvote-army.'});
-            bot.createMessage(config.upvoterChannel, msg);
+            this.sendUpvoteMessage(upvoter, req.body.isWeekend);
         }
     }
 
@@ -93,6 +82,29 @@ class UpvotePathClass {
                 signale.error(e);
             }
         }, 43200000);
+    }
+
+    /**
+     * Sends the upvote message
+     *
+     * @private
+     * @param {Member} upvoter
+     * @param {boolean} isWeekend
+     * @memberof UpvotePathClass
+     */
+    private sendUpvoteMessage(upvoter: Member, isWeekend: boolean): void {
+        let msg: string;
+
+        if (isWeekend) {
+            const points = Points.handle(upvoter.id, 2);
+            msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL during an active voting multiplier! Upvotes: ${points}`;
+        } else {
+            const points = Points.handle(upvoter.id, 1);
+            msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL! Upvotes: ${points}`;
+        }
+
+        signale.complete({prefix: '[upvote]', message: 'Sending message to #upvote-army.'});
+        bot.createMessage(config.upvoterChannel, msg);
     }
 }
 
