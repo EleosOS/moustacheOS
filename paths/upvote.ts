@@ -6,9 +6,11 @@ import { config } from '../config';
 
 class UpvotePathClass {
     public router: Router;
+    private remindersCache: string[];
 
     constructor() {
         this.router = Router();
+        this.remindersCache = ['string'];
 
         this.router.post('/', this.upvote.bind(this));
     }
@@ -68,12 +70,22 @@ class UpvotePathClass {
      * @memberof UpvotePathClass
      */
     private setReminder(upvoter: Member): void {
+        const cached = this.remindersCache.find((element) => {
+            return element === upvoter.id;
+        });
+
+        if (cached) {
+            return signale.note({prefix: '[upvote]', message: `${upvoter.username} already has a reminder set.`});
+        }
+
         signale.await({prefix: '[upvote]', message: `Setting a reminder for ${upvoter.username}... See you in 12 hours!`});
+        this.remindersCache.push(upvoter.id);
 
         setTimeout(async () => {
             try {
                 const channel = await upvoter.user.getDMChannel();
 
+                this.remindersCache.shift();
                 channel.createMessage('Hello! You can upvote Ease again.');
                 return signale.success({prefix: '[upvote]', message: `Sent a DM to ${upvoter.username}.`});
             } catch (e) {
