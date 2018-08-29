@@ -8,7 +8,8 @@
         "indent": [true, "spaces", 4],
         "quotemark": [true, "single"],
         "ordered-imports": [false],
-        "max-line-length": [false]
+        "max-line-length": [false],
+        "object-literal-shorthand": [false]
     },
     "rulesDirectory": []
 }

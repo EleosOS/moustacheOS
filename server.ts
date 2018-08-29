@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import signale from 'signale';
+import mongoose from 'mongoose';
 import { UpvotePath } from './paths/index';
 
 const app = express();
@@ -18,3 +19,10 @@ app.get('/', (req, res) => {
 const listener = app.listen(port, () => {
     signale.start(`Listening at port ${port}`);
 });
+
+try {
+    mongoose.connect('mongodb://localhost/moustacheDB');
+    signale.start('Connected to MongoDB.');
+} catch (e) {
+    signale.fatal(e);
+}
