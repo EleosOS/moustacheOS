@@ -10,7 +10,7 @@ class UpvotePathClass {
 
     constructor() {
         this.router = Router();
-        this.remindersCache = ['string'];
+        this.remindersCache = [];
 
         this.router.post('/', this.upvote.bind(this));
     }
