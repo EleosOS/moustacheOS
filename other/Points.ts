@@ -12,8 +12,8 @@ class PointsHandler {
      * @returns {number} Given user's points
      * @memberof Points
      */
-    public handle(userID: string, amount: number): number {
-        const userPoints = this.find(userID);
+    public async handle(userID: string, amount: number): Promise<number> {
+        const userPoints = await this.find(userID);
         const newUserPoints = this.increment(userPoints, amount);
         return newUserPoints.points;
     }
@@ -26,12 +26,7 @@ class PointsHandler {
      * @memberof Points
      */
     public async find(userID: string) {
-        let userPoints: Document | null;
-        try {
-            userPoints = await PointsModel.findOne({ userID: userID });
-        } catch (e) {
-            return signale.fatal(e);
-        }
+        const userPoints = await PointsModel.findOne({ userID: userID });
 
         if (userPoints) {
             return userPoints;

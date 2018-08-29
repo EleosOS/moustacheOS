@@ -21,7 +21,7 @@ const listener = app.listen(port, () => {
 });
 
 try {
-    mongoose.connect('mongodb://localhost/moustacheDB');
+    mongoose.connect('mongodb://localhost/moustacheDB', { useNewUrlParser: true});
     signale.start('Connected to MongoDB.');
 } catch (e) {
     signale.fatal(e);
