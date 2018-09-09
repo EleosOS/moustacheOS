@@ -38,11 +38,9 @@ class UpvotePathClass {
         if (!upvoter) {
             // The upvoter is not on the server
             signale.pause({prefix: '[upvote]', message: `${req.body.user} doesn't seem to be on the server...`});
-            signale.complete({prefix: '[upvote]', message: 'Sending message to #upvote-army.'});
             bot.createMessage(config.upvoterChannel, `Someone upvoted on DBL! But they aren't on the server to recieve their perks...`);
         } else {
             // The upvoter is on the server
-            signale.pending({prefix: '[upvote]', message: `${upvoter.username} is on the server...`});
             signale.pending({prefix: '[upvote]', message: `Adding role to ${upvoter.username}...`});
             upvoter.addRole(config.upvoterRole, 'Upvote on DBL');
 
@@ -73,10 +71,18 @@ class UpvotePathClass {
         setTimeout(async () => {
             try {
                 const channel = await upvoter.user.getDMChannel();
+                const embed: object = {
+                    embed: {
+                        author: {
+                            name: 'Hello!',
+                            icon_url: 'https://i.imgur.com/NoMc9tt.png'
+                        },
+                        description: '[You can upvote Ease again.](https://discordbots.org/bot/365879035496235008/vote)'
+                    }
+                }
 
                 this.remindersCache.shift();
-                channel.createMessage('Hello! You can upvote Ease again.');
-                return signale.success({prefix: '[upvote]', message: `Sent a DM to ${upvoter.username}.`});
+                return channel.createMessage(embed);
             } catch (e) {
                 signale.error({prefix: '[upvote]', message: `${upvoter.username} probably has their DMs disabled.`});
                 signale.error(e);
