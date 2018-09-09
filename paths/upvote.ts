@@ -33,7 +33,7 @@ class UpvotePathClass {
         signale.start({prefix: '[upvote]', message: `Upvote recieved! Searching for ${req.body.user}...`});
 
         const ease = bot.guilds.get('365236789855649814');
-        const upvoter: Member | undefined = ease!.members.find((u) => u.id === req.body.user);
+        const upvoter: Member | undefined = ease!.members.find((u: any) => u.id === req.body.user);
 
         if (!upvoter) {
             // The upvoter is not on the server
@@ -97,10 +97,10 @@ class UpvotePathClass {
 
         if (isWeekend) {
             const points = await Points.handle(upvoter.id, 2);
-            msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL during an active voting multiplier! Upvotes: ${points}`;
+            msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL during an active voting multiplier! Points: ${points}`;
         } else {
             const points = await Points.handle(upvoter.id, 1);
-            msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL! Upvotes: ${points}`;
+            msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL! Points: ${points}`;
         }
 
         signale.complete({prefix: '[upvote]', message: 'Sending message to #upvote-army.'});
