@@ -77,7 +77,8 @@ class UpvotePathClass {
                             name: 'Hello!',
                             icon_url: 'https://i.imgur.com/NoMc9tt.png'
                         },
-                        description: '[You can upvote Ease again.](https://discordbots.org/bot/365879035496235008/vote)'
+                        description: '[You can upvote Ease again.](https://discordbots.org/bot/365879035496235008/vote)',
+                        color: 0x1ABC9C
                     }
                 }
 
@@ -87,7 +88,7 @@ class UpvotePathClass {
                 signale.error({prefix: '[upvote]', message: `${upvoter.username} probably has their DMs disabled.`});
                 signale.error(e);
             }
-        }, 43200000);
+        }, 432);
     }
 
     /**
