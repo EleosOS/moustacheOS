@@ -88,7 +88,7 @@ class UpvotePathClass {
                 signale.error({prefix: '[upvote]', message: `${upvoter.username} probably has their DMs disabled.`});
                 signale.error(e);
             }
-        }, 432);
+        }, 43200000);
     }
 
     /**
