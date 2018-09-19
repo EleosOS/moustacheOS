@@ -2,27 +2,31 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import signale from 'signale';
 import mongoose from 'mongoose';
-import { UpvotePath } from './paths/index';
+import { UpvotePath, ErrorPath, ErrorCache } from './paths/index';
 
 const app = express();
 const port: number = 3000;
-const shitArt: string = `<img src="https://ih0.redbubble.net/image.366213776.3101/flat,800x800,075,f.jpg" alt="shit">`;
+const moustacheInfo: string = `<img src="https://cdn.discordapp.com/avatars/417105627253309450/f470851f6fbff7cd1739b3a327ff9f46.png?size=256" alt="moustache logo"><br /><p>moustacheOS ver 1.0.0</p>`;
 
 app.use(bodyParser.json());
 
 app.use('/upvote', UpvotePath);
+app.use('/errors', ErrorPath);
 
-app.get('/', (res: any) => {
-    res.send(shitArt);
+app.get('/', (req, res) => {
+    res.send(moustacheInfo);
 });
 
 app.listen(port, () => {
     signale.start(`Listening at port ${port}`);
 });
 
+ErrorCache.add(new Error('ono custom error'))
+
 try {
     mongoose.connect('mongodb://localhost/moustacheDB', { useNewUrlParser: true });
     signale.start('Connected to MongoDB.');
 } catch (e) {
+    ErrorCache.add(e);
     signale.fatal(e);
 }
