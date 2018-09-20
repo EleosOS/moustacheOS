@@ -106,18 +106,13 @@ class UpvotePathClass {
     private async sendUpvoteMessage(upvoter: Member, isWeekend: boolean) {
         let msg: string = '';
 
-        try {
-            if (isWeekend) {
+        if (isWeekend) {
                 const points = await Points.handle(upvoter.id, 2);
                 msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL during an active voting multiplier! Points: ${points}`;
             } else {
                 const points = await Points.handle(upvoter.id, 1);
                 msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL! Points: ${points}`;
             }
-        } catch (e) {
-            ErrorCache.add(e);
-            signale.error(e);
-        }
 
         signale.complete({prefix: '[upvote]', message: 'Sending message to #upvote-army.'});
         bot.createMessage(config.upvoterChannel, msg);

@@ -29,7 +29,7 @@ class ErrorPathClass {
      */
     private handle(req: Request, res: Response) {
         if (this.errorCache.length === 0) {
-            return res.send('No errors.')
+            return res.send('No errors.');
         }
         return res.send(this.errorCache);
     }

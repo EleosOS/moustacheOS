@@ -21,8 +21,6 @@ app.listen(port, () => {
     signale.start(`Listening at port ${port}`);
 });
 
-ErrorCache.add(new Error('ono custom error'))
-
 try {
     mongoose.connect('mongodb://localhost/moustacheDB', { useNewUrlParser: true });
     signale.start('Connected to MongoDB.');
