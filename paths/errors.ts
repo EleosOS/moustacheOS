@@ -16,7 +16,7 @@ class ErrorPathClass {
             this.errorCache.pop();
         }
 
-        return this.errorCache.push(err);
+        return this.errorCache.push({ name: err.name, message: err.message });
     }
 
     /**
