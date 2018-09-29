@@ -1,6 +1,6 @@
 import { Client } from 'eris';
 import { config } from '../config';
-import { ErrorCache } from '../paths/index';
+import { ErrorCache } from '../paths';
 import signale from 'signale';
 
 export const bot = new Client(config.token);
