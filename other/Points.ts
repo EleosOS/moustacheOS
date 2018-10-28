@@ -14,7 +14,7 @@ class PointsHandler {
      */
     public async handle(userID: string, amount: number): Promise<number> {
         const userPoints = await this.find(userID);
-        const newUserPoints = await this.increment(userPoints, amount);
+        const newUserPoints = this.increment(userPoints, amount);
         return newUserPoints.points;
     }
 
@@ -43,13 +43,13 @@ class PointsHandler {
      * @returns New Points Document
      * @memberof Points
      */
-    public async increment(userPoints: any, amount: number) {
+    public increment(userPoints: any, amount: number) {
         // I know userPoints is a Document but TypeScript wont let me access its properties, because it doesn't know they exist.
         // tslint:disable-next-line:no-unused-expression goddamit tslint
         userPoints.points += amount;
 
-        const saved = await userPoints.save()
-            .then((s: Document) => {return s; })
+        const saved = userPoints.save()
+            .then((s: Document) => {return; })
             .catch((e: Error) => ErrorCache.add(e));
 
         return saved;
