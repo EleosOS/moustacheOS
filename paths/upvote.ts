@@ -39,11 +39,9 @@ class UpvotePathClass {
         if (!upvoter) {
             // The upvoter is not on the server
             ErrorCache.add(new Error(`${req.body.user} not found.`));
-            signale.pause({prefix: '[upvote]', message: `${req.body.user} doesn't seem to be on the server...`});
             bot.createMessage(config.upvoterChannel, `Someone upvoted on DBL! But they aren't on the server to recieve their perks...`);
         } else {
             // The upvoter is on the server
-            signale.pending({prefix: '[upvote]', message: `Adding role to ${upvoter.username}...`});
             upvoter.addRole(config.upvoterRole, 'Upvote on DBL');
 
             this.setReminder(upvoter);
@@ -64,8 +62,8 @@ class UpvotePathClass {
         });
 
         if (cached) {
-            ErrorCache.add(new Error(`Tried to set multiple reminders for ${upvoter.username}.`));
-            return signale.note({prefix: '[upvote]', message: `${upvoter.username} already has a reminder set.`});
+            ErrorCache.add(new Error(`Tried to set multiple reminders for ${upvoter.username} (${upvoter.id}).`));
+            return;
         }
 
         signale.await({prefix: '[upvote]', message: `Setting a reminder for ${upvoter.username}... See you in 12 hours!`});
@@ -89,8 +87,6 @@ class UpvotePathClass {
                 return channel.createMessage(embed);
             } catch (e) {
                 ErrorCache.add(e);
-                signale.error({prefix: '[upvote]', message: `${upvoter.username} probably has their DMs disabled.`});
-                signale.error(e);
             }
         }, 43200000);
     }

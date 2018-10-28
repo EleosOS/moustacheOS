@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import signale from 'signale';
 
 class ErrorPathClass {
     public router: Router;
@@ -12,6 +13,8 @@ class ErrorPathClass {
     }
 
     public add(err: Error) {
+        signale.error(err);
+
         if (this.errorCache.length > 10) {
             this.errorCache.pop();
         }
