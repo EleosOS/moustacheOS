@@ -49,7 +49,7 @@ class PointsHandler {
         userPoints.points += amount;
 
         const saved = await userPoints.save()
-            .then((s: Document) => {return; })
+            .then((s: Document) => {return s; })
             .catch((e: Error) => ErrorCache.add(e));
 
         return saved;
