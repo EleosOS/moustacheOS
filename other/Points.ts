@@ -14,7 +14,7 @@ class PointsHandler {
      */
     public async handle(userID: string, amount: number): Promise<number> {
         const userPoints = await this.find(userID);
-        const newUserPoints = this.increment(userPoints, amount);
+        const newUserPoints = await this.increment(userPoints, amount);
         return newUserPoints.points;
     }
 
