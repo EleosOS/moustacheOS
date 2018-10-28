@@ -74,8 +74,7 @@ class PointsHandler {
             userID: userID,
         });
 
-        await userPoints.save();
-        return userPoints;
+        return await userPoints.save();
     }
 }
 
