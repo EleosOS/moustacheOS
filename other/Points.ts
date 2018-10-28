@@ -68,13 +68,13 @@ class PointsHandler {
      * @returns {Document} Points Document
      * @memberof Points
      */
-    private create(userID: string): Document {
+    private async create(userID: string) {
         const userPoints = new PointsModel({
             points: 0,
             userID: userID,
         });
 
-        userPoints.save();
+        await userPoints.save();
         return userPoints;
     }
 }
