@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "compile": "tsc",
-    "start": "node ./build/server.js",
-    "pm2restart": "pm2 restart ./build/server.js"
+    "start": "node ./build/moustache.js",
+    "pm2restart": "pm2 restart ./build/moustache.js"
   },
   "author": "",
   "license": "ISC",
