@@ -43,14 +43,19 @@ class PointsHandler {
      * @returns New Points Document
      * @memberof Points
      */
-    public increment(userPoints: any, amount: number) {
+    public async increment(userPoints: any, amount: number) {
+        let saved;
+
         // I know userPoints is a Document but TypeScript wont let me access its properties, because it doesn't know they exist.
         // tslint:disable-next-line:no-unused-expression goddamit tslint
         userPoints.points += amount;
 
-        const saved = userPoints.save()
-            .then((s: Document) => {return; })
-            .catch((e: Error) => ErrorCache.add(e));
+        try {
+            saved = await userPoints.save();
+        } catch (err) {
+            ErrorCache.add(err);
+            saved = '?';
+        }
 
         return saved;
     }
