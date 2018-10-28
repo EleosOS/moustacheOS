@@ -1,5 +1,6 @@
 import { PointsModel } from './index';
 import { Document } from 'mongoose';
+import { ErrorCache } from '../paths/index';
 
 class PointsHandler {
 
@@ -13,7 +14,7 @@ class PointsHandler {
      */
     public async handle(userID: string, amount: number): Promise<number> {
         const userPoints = await this.find(userID);
-        const newUserPoints = this.increment(userPoints, amount);
+        const newUserPoints = await this.increment(userPoints, amount);
         return newUserPoints.points;
     }
 
@@ -42,7 +43,7 @@ class PointsHandler {
      * @returns New Points Document
      * @memberof Points
      */
-    public async increment(userPoints: any, amount: number): Promise<Document> {
+    public async increment(userPoints: any, amount: number) {
         // I know userPoints is a Document but TypeScript wont let me access its properties, because it doesn't know they exist.
         // tslint:disable-next-line:no-unused-expression goddamit tslint
         userPoints.points += amount;
