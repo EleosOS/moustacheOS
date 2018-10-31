@@ -1,8 +1,0 @@
-Make a config.ts file which follows this template.
-
-export const config = {
-    authorization: '',
-    token: '',
-    upvoterChannel: '',
-    upvoterRole: '',
-};

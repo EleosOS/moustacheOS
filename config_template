@@ -1,0 +1,8 @@
+Make a config.ts file which follows this template.
+
+export const config = {
+    authorization: '', // Authorization string sent by DBL must match this string in order for upvotes to go through.
+    token: '', // Token of the bot
+    upvoterChannel: '', // Channel to send upvote messages to
+    upvoterRole: '', // Role that should be given to upvoters
+};
