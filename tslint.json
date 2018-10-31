@@ -7,9 +7,11 @@
     "rules": {
         "indent": [true, "spaces", 4],
         "quotemark": [true, "single"],
-        "ordered-imports": [false],
-        "max-line-length": [false],
-        "object-literal-shorthand": [false]
+        "ordered-imports": false,
+        "max-line-length": false,
+        "object-literal-shorthand": false,
+        "no-console": false,
+        "object-literal-sort-keys": false
     },
     "rulesDirectory": []
 }

@@ -1,8 +1,6 @@
-import { PointsModel } from './index';
-import { Document } from 'mongoose';
-import { ErrorCache } from '../paths/index';
+import { PointsModel } from '../other/index';
 
-class PointsHandler {
+class PointsClass {
 
     /**
      * Simpler way to increment points, basicly just calls all methods for you
@@ -40,7 +38,7 @@ class PointsHandler {
      *
      * @param {Document} userPoints
      * @param {number} amount Amount of points to add
-     * @returns New Points Document
+     * @returns Saved Points Document
      * @memberof Points
      */
     public async increment(userPoints: any, amount: number) {
@@ -53,7 +51,7 @@ class PointsHandler {
         try {
             saved = await userPoints.save();
         } catch (err) {
-            ErrorCache.add(err);
+            console.log(err);
             saved = '?';
         }
 
@@ -78,4 +76,4 @@ class PointsHandler {
     }
 }
 
-export const Points = new PointsHandler();
+export const Points = new PointsClass();
