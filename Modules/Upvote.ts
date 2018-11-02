@@ -52,7 +52,7 @@ class UpvoteClass {
             return;
         }
 
-        console.log(`Setting a reminder for ${upvoter.username}.`);
+        console.log(`[upvote] Setting a reminder for ${upvoter.username}.`);
         this.reminderCache.push(upvoter.id);
 
         setTimeout(async () => {
@@ -96,7 +96,7 @@ class UpvoteClass {
                 msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL! Points: ${points}`;
             }
 
-        console.log('Sending message to #upvote-army.');
+        console.log('[upvote] Sending message to #upvote-army.');
         bot.createMessage(config.upvoterChannel, msg);
     }
 }
