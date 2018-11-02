@@ -12,7 +12,7 @@ class PointsClass {
      */
     public async handle(userID: string, amount: number): Promise<number> {
         const userPoints = await this.find(userID);
-        const newUserPoints = await this.increment(userPoints, amount);
+        const newUserPoints = await this.change(userPoints, amount);
         return newUserPoints.points;
     }
 
@@ -34,14 +34,14 @@ class PointsClass {
     }
 
     /**
-     * Increments the documents points by given amount
+     * Changes the documents points by given amount
      *
      * @param {Document} userPoints
-     * @param {number} amount Amount of points to add
+     * @param {number} amount Amount of points to add/remove
      * @returns Saved Points Document
      * @memberof Points
      */
-    public async increment(userPoints: any, amount: number) {
+    public async change(userPoints: any, amount: number) {
         let saved;
 
         // I know userPoints is a Document but TypeScript wont let me access its properties, because it doesn't know they exist.
