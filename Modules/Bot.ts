@@ -40,11 +40,18 @@ bot.registerCommand('pointsChange', async (msg: Message, args: string[]) => {
     },
 });
 
-bot.registerCommand('newReminder', (msg: Message, args: string[]) => {
+bot.registerCommand('newReminder', (msg: Message, args: string[]): string => {
     const ease = bot.guilds.get('365236789855649814');
     const user: Member | undefined = ease!.members.find((u: any) => u.id === args[0]);
 
-    Upvote.setReminder(user);
+    if (!user) {
+        return 'Couldn\'t find that user.';
+    } else if (!args || args.length > 2) {
+        return 'Not enough or too many arguments.';
+    } else {
+        Upvote.setReminder(user);
+        return 'Reminder set.';
+    }
 }, {
     requirements: {
         roleIDs: ['378293035852890124'],
