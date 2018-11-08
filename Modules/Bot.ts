@@ -45,4 +45,8 @@ bot.registerCommand('newReminder', (msg: Message, args: string[]) => {
     const user: Member | undefined = ease!.members.find((u: any) => u.id === args[0]);
 
     Upvote.setReminder(user);
+}, {
+    requirements: {
+        roleIDs: ['378293035852890124'],
+    },
 })
