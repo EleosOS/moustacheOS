@@ -56,4 +56,9 @@ bot.registerCommand('newReminder', (msg: Message, args: string[]): string => {
     requirements: {
         roleIDs: ['378293035852890124'],
     },
+});
+
+bot.registerCommand('selfReminder', (msg: Message): string => {
+    Upvote.setReminder(msg.member!);
+    return 'Reminder set. I will remind you to upvote in 12 hours from now.'
 })
