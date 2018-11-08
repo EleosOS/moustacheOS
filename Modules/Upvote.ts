@@ -41,11 +41,11 @@ class UpvoteClass {
     /**
      * Sends a direct message to a user after 12 hours
      *
-     * @private
+     * @public
      * @param {Member} upvoter
      * @memberof UpvotePathClass
      */
-    private setReminder(upvoter: Member): void {
+    public setReminder(upvoter: Member): void {
 
         if (this.reminderCache.includes(upvoter.id)) {
             console.log(`[upvote] Tried to set multiple reminders of same id for ${upvoter.username} (${upvoter.id}).`);

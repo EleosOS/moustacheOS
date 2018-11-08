@@ -1,5 +1,5 @@
-import { CommandClient, Message } from 'eris';
-import { Points } from './index';
+import { CommandClient, Message, Member } from 'eris';
+import { Points, Upvote } from './index';
 import { config } from '../config';
 
 const commandOptions = {
@@ -22,7 +22,7 @@ bot.on('error', (e: Error) => {
 
 // Commands
 
-bot.registerCommand('pointsChange', async (msg, args) => {
+bot.registerCommand('pointsChange', async (msg: Message, args: string[]) => {
     const [ userID, amount ] = args;
 
     if (!userID || !amount) {
@@ -39,3 +39,10 @@ bot.registerCommand('pointsChange', async (msg, args) => {
         roleIDs: ['378293035852890124'],
     },
 });
+
+bot.registerCommand('newReminder', (msg: Message, args: string[]) => {
+    const ease = bot.guilds.get('365236789855649814');
+    const user: Member | undefined = ease!.members.find((u: any) => u.id === args[0]);
+
+    Upvote.setReminder(user);
+})
