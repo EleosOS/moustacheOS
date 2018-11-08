@@ -1,11 +1,11 @@
-import { CommandClient } from 'eris';
+import { CommandClient, Message } from 'eris';
 import { Points } from './index';
 import { config } from '../config';
 
 const commandOptions = {
     description: 'Community Bot for the Ease server',
     owner: 'Eleos#0010',
-    prefix: ['@mention', 'm!', 'i cast'],
+    prefix: ['@mention', 'm!'],
 };
 
 export const bot = new CommandClient(config.token, {}, commandOptions);
@@ -20,11 +20,15 @@ bot.on('error', (e: Error) => {
     console.log(e);
 });
 
+// Commands
+
 bot.registerCommand('pointsChange', async (msg, args) => {
     const [ userID, amount ] = args;
 
     if (!userID || !amount) {
         return 'Not enough arguments.';
+    } else if (!+amount) {
+        return 'Amount is not a number.';
     }
 
     const userPoints = await Points.handle(userID, +amount);
