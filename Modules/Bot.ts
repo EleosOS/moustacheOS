@@ -12,7 +12,7 @@ export const bot = new CommandClient(config.token, {}, commandOptions);
 
 bot.connect();
 
-bot.on('ready', () => {
+bot.once('ready', () => {
     console.log('[startup] Bot ready.');
 });
 
