@@ -48,7 +48,7 @@ class UpvoteClass {
     public setReminder(upvoter: Member): boolean | void {
 
         if (this.reminderCache.includes(upvoter.id)) {
-            console.log(`[upvote] Tried to set multiple reminders of same id for ${upvoter.username} (${upvoter.id}).`);
+            console.log(`[upvote] Tried to set multiple reminders of for ${upvoter.username} (${upvoter.id}).`);
             return false;
         }
 
