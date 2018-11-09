@@ -4,12 +4,15 @@ const port: number = 3001;
 
 console.log('--------------------\nStarting moustache\n--------------------');
 
-try {
-    mongoose.connect('mongodb://localhost/moustacheDB', { useNewUrlParser: true });
-    console.log('[master] Connected to MongoDB.');
-} catch (e) {
-    console.log(e);
-}
+
+    mongoose.connect('mongodb://localhost:27017/moustacheDB', { 
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        autoReconnect: true, 
+    })
+        .then(() => console.log('[master] Connected to MongoDB.'))
+        .catch(console.log)
+
 
 app.listen(port, () => {
     console.log(`[express] Listening at port ${port}`);
