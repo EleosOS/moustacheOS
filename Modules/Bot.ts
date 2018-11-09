@@ -48,10 +48,16 @@ bot.registerCommand('newReminder', (msg: Message, args: string[]): string => {
         return 'Couldn\'t find that user.';
     } else if (!args || args.length > 2) {
         return 'Not enough or too many arguments.';
-    } else {
-        Upvote.setReminder(user);
-        return 'Reminder set.';
     }
+
+    const reminder = Upvote.setReminder(user);
+
+    if (reminder) {
+        return 'Reminder set.';
+    } else {
+        return 'This user already has a reminder set.';
+    }
+
 }, {
     requirements: {
         roleIDs: ['378293035852890124'],
@@ -59,6 +65,11 @@ bot.registerCommand('newReminder', (msg: Message, args: string[]): string => {
 });
 
 bot.registerCommand('selfReminder', (msg: Message): string => {
-    Upvote.setReminder(msg.member!);
-    return 'Reminder set. I will remind you to upvote in 12 hours from now.'
-})
+    const reminder = Upvote.setReminder(msg.member!);
+
+    if (reminder) {
+        return 'Reminder set. I will remind you to upvote in 12 hours from now.';
+    } else {
+        return 'You already have a reminder set.';
+    }
+});

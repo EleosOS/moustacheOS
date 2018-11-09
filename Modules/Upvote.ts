@@ -45,11 +45,11 @@ class UpvoteClass {
      * @param {Member} upvoter
      * @memberof UpvotePathClass
      */
-    public setReminder(upvoter: Member): void {
+    public setReminder(upvoter: Member): false | void {
 
         if (this.reminderCache.includes(upvoter.id)) {
             console.log(`[upvote] Tried to set multiple reminders of same id for ${upvoter.username} (${upvoter.id}).`);
-            return;
+            return false;
         }
 
         console.log(`[upvote] Setting a reminder for ${upvoter.username}.`);
