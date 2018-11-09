@@ -22,6 +22,21 @@ bot.on('error', (e: Error) => {
 
 // Commands
 
+bot.registerCommand('selfReminder', (msg: Message): string => {
+    const reminder = Upvote.setReminder(msg.member!);
+
+    if (reminder) {
+        return 'Reminder set. I will remind you to upvote in 12 hours from now.';
+    } else {
+        return 'You already have a reminder set.';
+    }
+}, {
+    description: 'Sets an upvote reminder for yourself.',
+    fullDescription: 'Sets a new upvote reminder for yourself. Doesn\'t work if there is already a reminder set for you.',
+});
+
+// Ruler Only Commands
+
 bot.registerCommand('pointsChange', async (msg: Message, args: string[]) => {
     const [ userID, amount ] = args;
 
@@ -38,9 +53,9 @@ bot.registerCommand('pointsChange', async (msg: Message, args: string[]) => {
     requirements: {
         roleIDs: ['378293035852890124'],
     },
-    description: '(Ruler only) Changes points by given amount.',
-    fullDescription: '(Ruler only)\nIncrements or decrements the points of the given user by given amount.',
-    usage: 'pointsChange `userID` `amount`',
+    description: '`**(Ruler only)**` Changes points by given amount.',
+    fullDescription: '`**(Ruler only)**`\nIncrements or decrements the points of the given user by given amount.',
+    usage: '`userID` `amount`',
 });
 
 bot.registerCommand('newReminder', (msg: Message, args: string[]): string => {
@@ -65,21 +80,7 @@ bot.registerCommand('newReminder', (msg: Message, args: string[]): string => {
     requirements: {
         roleIDs: ['378293035852890124'],
     },
-    description: '(Ruler only) Sets an upvote reminder for a user.',
-    fullDescription: '(Ruler only)\nSets a new upvote reminder for the given user. Doesn\'t work if there is already a reminder set.',
-    usage: 'newReminder `userID`',
-});
-
-bot.registerCommand('selfReminder', (msg: Message): string => {
-    const reminder = Upvote.setReminder(msg.member!);
-
-    if (reminder) {
-        return 'Reminder set. I will remind you to upvote in 12 hours from now.';
-    } else {
-        return 'You already have a reminder set.';
-    }
-}, {
-    description: 'Sets an upvote reminder for yourself.',
-    fullDescription: 'Sets a new upvote reminder for yourself. Doesn\'t work if there is already a reminder set for you.',
-    usage: 'setReminder',
+    description: '`**(Ruler only)**` Sets an upvote reminder for a user.',
+    fullDescription: '`**(Ruler only)**`\nSets a new upvote reminder for the given user. Doesn\'t work if there is already a reminder set.',
+    usage: '`userID`',
 });
