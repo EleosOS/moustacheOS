@@ -2,10 +2,11 @@
   "name": "moustacheos",
   "version": "XP 1.1",
   "description": "",
-  "main": "master.js",
+  "main": "master.ts",
   "scripts": {
     "compile": "tsc",
     "start": "node ./build/master.js",
+    "pm2start": "pm2 start ./build/master.js",
     "pm2restart": "pm2 restart ./build/master.js"
   },
   "author": "",
