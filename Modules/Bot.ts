@@ -65,7 +65,7 @@ bot.registerCommand('newReminder', (msg: Message, args: string[]): string => {
     requirements: {
         roleIDs: ['378293035852890124'],
     },
-    description: '(Ruler only) Sets a upvote reminder for a user.',
+    description: '(Ruler only) Sets an upvote reminder for a user.',
     fullDescription: '(Ruler only)\nSets a new upvote reminder for the given user. Doesn\'t work if there is already a reminder set.',
     usage: 'newReminder `userID`',
 });
@@ -79,7 +79,7 @@ bot.registerCommand('selfReminder', (msg: Message): string => {
         return 'You already have a reminder set.';
     }
 }, {
-    description: 'Sets a upvote reminder for yourself.',
+    description: 'Sets an upvote reminder for yourself.',
     fullDescription: 'Sets a new upvote reminder for yourself. Doesn\'t work if there is already a reminder set for you.',
     usage: 'setReminder',
 });
