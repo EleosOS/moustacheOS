@@ -66,6 +66,8 @@ bot.registerCommand('newReminder', (msg: Message, args: string[]): string => {
         return 'Couldn\'t find that user.';
     } else if (!args || args.length > 2) {
         return 'Not enough or too many arguments.';
+    } else if (bot.user.id === args[0]) {
+        return 'I don\'t need to remind myself to upvote, thanks.';
     }
 
     const reminder = Upvote.setReminder(user);
