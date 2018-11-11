@@ -1,7 +1,7 @@
 /*
 Warning: This is a template file.
 If you want to host the bot by yourself, you obviously need to replace the values.
-This file is also there so Travis CI is able to compile the code correctly.
+After youd did that, rename the file to config.ts
 */
 
 export const config = {
