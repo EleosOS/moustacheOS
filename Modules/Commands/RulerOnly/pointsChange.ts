@@ -1,5 +1,5 @@
 import { Points } from '../../index';
-import { MoustacheCommand } from '../Command_Interface';
+import { MoustacheCommand } from '../index';
 
 export const pointsChange: MoustacheCommand = {
     execute: async (msg, args) => {

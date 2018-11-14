@@ -40,6 +40,7 @@ class UpvoteClass {
 
     /**
      * Sends a direct message to a user after 12 hours
+     * TODO: To be updated with Reminder 2.0
      *
      * @public
      * @param {Member} upvoter

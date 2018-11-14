@@ -1,5 +1,5 @@
 import { Upvote } from '../index';
-import { MoustacheCommand } from './Command_Interface';
+import { MoustacheCommand } from './index';
 
 export const selfReminder: MoustacheCommand = {
     execute: async (msg) => {

@@ -1,5 +1,5 @@
 import { bot, Upvote } from '../../index';
-import { MoustacheCommand } from '../Command_Interface';
+import { MoustacheCommand } from '../index';
 
 export const newReminder: MoustacheCommand = {
     execute: async (msg, args) => {
