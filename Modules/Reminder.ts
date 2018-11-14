@@ -160,6 +160,8 @@ class ReminderClass {
     }
 }
 
+export const Reminder = new ReminderClass();
+
 /* Commands TBA:
     - reminder optout (also deletes all set reminders)
     - reminder optin

@@ -1,17 +1,12 @@
 import { Member } from 'eris';
 import { Request } from 'express';
-import { bot, getSuperb, Points } from './index';
+import { bot, getSuperb, Points, Reminder } from './index';
 import { config } from '../config';
 
 class UpvoteClass {
-    private reminderCache: string[];
-
-    constructor() {
-        this.reminderCache = [];
-    }
 
     /**
-     * Handles upvotes (no shit)
+     * Handle upvotes (no shit)
      *
      * @private
      * @param {Request} req
@@ -39,24 +34,14 @@ class UpvoteClass {
     }
 
     /**
-     * Sends a direct message to a user after 12 hours
-     * TODO: To be updated with Reminder 2.0
+     * Send a direct message to a user after 12 hours.
      *
      * @public
      * @param {Member} upvoter
      * @memberof UpvotePathClass
      */
-    public setReminder(upvoter: Member): boolean | void {
-
-        if (this.reminderCache.includes(upvoter.id)) {
-            console.log(`[upvote] Tried to set multiple reminders of for ${upvoter.username} (${upvoter.id}).`);
-            return false;
-        }
-
-        console.log(`[upvote] Setting a reminder for ${upvoter.username}.`);
-        this.reminderCache.push(upvoter.id);
-
-        setTimeout(async () => {
+    public async setReminder(upvoter: Member) {
+        const upvoteReminder = async () => {
             try {
                 const channel = await upvoter.user.getDMChannel();
                 const embed: object = {
@@ -69,19 +54,18 @@ class UpvoteClass {
                         color: 0x1ABC9C,
                     },
                 };
-
-                this.reminderCache.shift();
                 return channel.createMessage(embed);
-            } catch (e) {
+            }
+            catch (e) {
                 console.log(e);
             }
-        }, 43200000);
+        };
 
-        return true;
+        await Reminder.add(`upvote:${upvoter.id}`, 43200000, upvoteReminder, upvoter.id);
     }
 
     /**
-     * Sends the upvote message
+     * Send the upvote message
      *
      * @private
      * @param {Member} upvoter
