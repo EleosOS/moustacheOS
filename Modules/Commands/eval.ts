@@ -44,6 +44,9 @@ export const evalCmd: MoustacheCommand = {
     options: {
         description: 'Eval JS code.',
         fullDescription: '[A weird amount of facial hair is covering this part of the message, you can\'t decipher what it reads.]',
-        usage: ''
+        usage: '',
+        requirements: {
+            userIDs: ['249880389160665089']
+        }
     }
 };
