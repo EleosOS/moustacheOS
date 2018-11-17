@@ -9,7 +9,7 @@ export const evalCmd: MoustacheCommand = {
             const modules = {
                 bot: bot,
                 points: Points,
-                remider: Reminder,
+                reminder: Reminder,
                 upvote: Upvote,
                 pointsmod: PointsModel,
                 remindmod: ReminderModel
