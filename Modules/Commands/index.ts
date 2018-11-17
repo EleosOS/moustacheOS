@@ -10,7 +10,7 @@ export const commands: MoustacheCommand[] = [
 ];
 
 export interface MoustacheCommand {
-    execute: (msg: Message, args: string[]) => Promise<string>;
+    execute: (msg: Message, args: string[]) => Promise<string | Message>;
     label: string;
     options: MoustacheOptions;
     subcommands?: MoustacheCommand[];
