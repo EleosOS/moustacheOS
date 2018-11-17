@@ -1,6 +1,7 @@
 import { bot, Points, Reminder, Upvote } from '../index'
 import { PointsModel, ReminderModel } from '../../other';
 import { MoustacheCommand } from './index';
+import { inspect } from 'util';
 
 export const evalCmd: MoustacheCommand = {
     // Shamelessly copied from AxonCore (with some edits). You should check it out.
@@ -16,7 +17,12 @@ export const evalCmd: MoustacheCommand = {
             }
 
             let evaled = await eval(args.join(' '));
-            evaled = String(evaled);
+
+            if (typeof evaled === 'object') {
+                evaled = inspect(evaled, { depth: 0, showHidden: true });
+            } else {
+                evaled = String(evaled);
+            }
     
             // Just in case.
             evaled = evaled.split(bot.token).join('[The amount of facial hair covering this part of the message is not allowing you to read it.]');

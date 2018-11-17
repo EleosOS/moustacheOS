@@ -14,7 +14,7 @@ export const leaderboard: MoustacheCommand = {
             const member = ease!.members.find((u: any) => u.id === element.userID);
 
             fields.push({
-                name: `${index} | ${member.username}#${member.discriminator}`,
+                name: `${index++} | ${member.username}#${member.discriminator}`,
                 value: `Points: ${element.points}`
             });
         })
