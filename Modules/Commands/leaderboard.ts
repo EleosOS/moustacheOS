@@ -9,6 +9,6 @@ export const leaderboard: MoustacheCommand = {
     options: {
         description: 'Shows the point leaderboard.',
         fullDescription: 'Shows the top 10 users with the most points.',
-        
+        usage: ''
     }
 }
