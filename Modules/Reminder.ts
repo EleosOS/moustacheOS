@@ -176,7 +176,11 @@ class ReminderClass {
         (cache as any).cache = this.reminderCache;
         (cache as any).ignored = this.ignoredCache;
 
-        cache.save();
+        try {
+            cache.save();
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     /**
