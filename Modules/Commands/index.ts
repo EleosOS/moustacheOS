@@ -1,11 +1,9 @@
 import { Message, CommandOptions } from 'eris';
-import { selfReminder } from './selfReminder';
-import { newReminder } from './RulerOnly/newReminder';
-import { pointsChange } from './RulerOnly/pointsChange';
+import { reminder } from './reminder';
+import { pointsChange } from './pointsChange';
 
 export const commands: MoustacheCommand[] = [
-    selfReminder,
-    newReminder,
+    reminder,
     pointsChange
 ];
 
@@ -13,6 +11,7 @@ export interface MoustacheCommand {
     execute: (msg: Message, args: string[]) => Promise<string>;
     label: string;
     options: MoustacheOptions;
+    subcommands?: MoustacheCommand[];
 }
 
 interface MoustacheOptions extends CommandOptions {

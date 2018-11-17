@@ -21,5 +21,11 @@ bot.on('error', (e: Error) => {
 });
 
 commands.forEach((element) => {
-    bot.registerCommand(element.label, element.execute, element.options)
+    const command = bot.registerCommand(element.label, element.execute, element.options)
+
+    if (element.subcommands) {
+        element.subcommands.forEach((subcommand) => {
+            command.registerSubcommand(subcommand.label, subcommand.execute, subcommand.options);
+        })
+    }
 });

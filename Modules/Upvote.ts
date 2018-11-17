@@ -3,6 +3,11 @@ import { Request } from 'express';
 import { bot, getSuperb, Points, Reminder } from './index';
 import { config } from '../config';
 
+/**
+ * Handles everything related to upvotes.
+ *
+ * @class UpvoteClass
+ */
 class UpvoteClass {
 
     /**
@@ -61,7 +66,7 @@ class UpvoteClass {
             }
         };
 
-        await Reminder.add(`upvote:${upvoter.id}`, 43200000, upvoteReminder, upvoter.id);
+        return await Reminder.add(`upvote:${upvoter.id}`, 43200000, upvoteReminder, upvoter.id);
     }
 
     /**

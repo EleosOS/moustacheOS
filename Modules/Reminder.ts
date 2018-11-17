@@ -9,11 +9,18 @@ export interface MoustacheReminder {
     execute: (msg?: Message, args?: string[]) => void;
 }
 
+/**
+ * Handles reminders.
+ *
+ * @class ReminderClass
+ */
 class ReminderClass {
-    reminderCache: Map<string, MoustacheReminder>;
+    private reminderCache: Map<string, MoustacheReminder>;
+    private ignoredCache: Map<string, null>
 
     constructor() {
         this.reminderCache = new Map();
+        this.ignoredCache = new Map();
 
         this.init();
     }
@@ -33,6 +40,7 @@ class ReminderClass {
             return console.log('[reminder] No saved reminder cache found!');
         } else {
             this.reminderCache = (savedCache as any).cache;
+            this.ignoredCache = (savedCache as any).ignored;
         }
 
         this.reminderCache.forEach((value) => {
@@ -58,12 +66,16 @@ class ReminderClass {
      * @param {number} delay The amount of time to wait until execute gets triggered (in ms)
      * @param {() => void} execute Function to execute after the delay
      * @param {string} [userID] Associate a userID to the reminder
-     * @returns {boolean} True if successfully added, false if there already is a reminder with the same ID.
+     * @returns {boolean} True if successfully added, false if there already is a reminder with the same ID or associated userID is opted out.
      * @memberof ReminderClass
      */
     public async add(id: string, delay: number, execute: () => void, userID?: string) {
         // Don't set multiple reminders with the same ID
         if (this.reminderCache.has(id)) {
+            return false;
+        }
+
+        if (userID && this.ignored(userID)) {
             return false;
         }
 
@@ -111,7 +123,7 @@ class ReminderClass {
 
         clearTimeout(reminder.timeout);
 
-        await this.reminderCache.delete(id);
+        this.reminderCache.delete(id);
 
         await this.save();
         
@@ -128,7 +140,7 @@ class ReminderClass {
     private async removeAfterTimeout(id: string) {
         // Interval was already cleared at this point
         // delete from cache
-        await this.reminderCache.delete(id);
+        this.reminderCache.delete(id);
 
         // update DB
         await this.save();
@@ -141,23 +153,70 @@ class ReminderClass {
      * @memberof ReminderClass
      */
     public async removeAll(userID: string) {
-        this.reminderCache.forEach((value) => {
+        this.reminderCache.forEach(async (value) => {
             if (value.userID === userID) {
-                this.remove(value.id);
+                await this.remove(value.id);
             }
-        })
+        });
     }
 
     /**
-     * Saves the cache to the DB.
+     * Save the cache to the DB.
      *
      * @private
      * @memberof ReminderClass
      */
     private async save() {
-        await ReminderModel.update({ id: 1 }, { cache: this.reminderCache }, (err) => {
+        await ReminderModel.update({ id: 1 }, { cache: this.reminderCache, ignored: this.ignoredCache }, (err) => {
             console.log(err);
         });
+    }
+
+    /**
+     * Check if the given userID opted out of reminders.
+     *
+     * @param {string} userID
+     * @returns {boolean} True if they did, false if not
+     * @memberof ReminderClass
+     */
+    public ignored(userID: string): boolean {
+        return this.ignoredCache.has(userID);
+    }
+
+    /**
+     * Add the given userID to the opted out list.
+     *
+     * @param {string} userID
+     * @returns {Promise<boolean>} True if successful, false if already opted out
+     * @memberof ReminderClass
+     */
+    public async optout(userID: string): Promise<boolean> {
+        if (this.ignored(userID)) {
+            return false;
+        }
+
+        this.ignoredCache.set(userID, null);
+        await this.removeAll(userID);
+
+        return true;
+    }
+
+    /**
+     * Remove the given userID from the opted out list.
+     *
+     * @param {string} userID
+     * @returns {Promise<boolean>} True if successfull, false if not opted out
+     * @memberof ReminderClass
+     */
+    public async optin(userID: string): Promise<boolean> {
+        if (!this.ignored(userID)) {
+            return false;
+        }
+
+        this.ignoredCache.delete(userID);
+        await this.save();
+
+        return true;
     }
 }
 
