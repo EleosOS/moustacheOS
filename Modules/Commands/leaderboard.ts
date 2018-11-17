@@ -10,12 +10,12 @@ export const leaderboard: MoustacheCommand = {
         const ease = bot.guilds.get('365236789855649814');
         
 
-        data.forEach((element: any) => {
+        data.forEach((element: any, index) => {
             const member = ease!.members.find((u: any) => u.id === element.userID);
 
             fields.push({
-                name: `${member.username}#${member.discriminator} | Points: ${element.points}`,
-                value: element.userID
+                name: `${index} | ${member.username}#${member.discriminator}`,
+                value: `Points: ${element.points}`
             });
         })
 
