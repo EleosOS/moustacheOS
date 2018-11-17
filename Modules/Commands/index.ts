@@ -1,9 +1,11 @@
 import { Message, CommandOptions } from 'eris';
 import { reminder } from './reminder';
+import { evalCmd } from './eval';
 import { pointsChange } from './pointsChange';
 
 export const commands: MoustacheCommand[] = [
     reminder,
+    evalCmd,
     pointsChange
 ];
 
