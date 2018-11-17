@@ -28,10 +28,11 @@ class ReminderClass {
     private async init() {
         const savedCache = await ReminderModel.findOne({ id: 1 });
         const currentTime = new Date().getMilliseconds();
-        this.reminderCache = (savedCache as any).cache;
 
         if (!savedCache) {
             return console.log('[reminder] No saved reminder cache found!');
+        } else {
+            this.reminderCache = (savedCache as any).cache;
         }
 
         this.reminderCache.forEach((value) => {

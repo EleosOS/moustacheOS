@@ -6,7 +6,7 @@ console.log('--------------------\nStarting moustache\n--------------------');
 
 mongoose.connect('mongodb://localhost:27017/moustacheDB', {
     useNewUrlParser: true,
-    autoReconnect: true,
+    autoReconnect: true
 })
     .then(() => console.log('[master] Connected to MongoDB.'))
     .catch(console.log);
