@@ -17,8 +17,8 @@ export const pointsChange: MoustacheCommand = {
     },
     label: 'pointsChange',
     options: {
-        description: '`**(Ruler only)**` Changes points by given amount.',
-        fullDescription: '`**(Ruler only)**`\nIncrements or decrements the points of the given user by given amount.',
+        description: '*Ruler only* Changes points by given amount.',
+        fullDescription: '*Ruler only*\nIncrements or decrements the points of the given user by given amount.',
         usage: '`userID` `amount`',
         requirements: {
             roleIDs: ['378293035852890124'],

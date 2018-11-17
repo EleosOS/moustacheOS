@@ -98,7 +98,7 @@ class ReminderClass {
         };
 
         // add reminder to this.reminderCache
-        await this.reminderCache.set(id, reminder);
+        this.reminderCache.set(id, reminder);
 
         // update DB
         await this.save();
@@ -167,9 +167,16 @@ class ReminderClass {
      * @memberof ReminderClass
      */
     private async save() {
-        await ReminderModel.update({ id: 1 }, { cache: this.reminderCache, ignored: this.ignoredCache }, (err) => {
-            console.log(err);
-        });
+        const cache = await ReminderModel.findOne({ id: 1 });
+
+        if (!cache) {
+            return new Error('Couldn\'t save cache to DB!');
+        }
+
+        (cache as any).cache = this.reminderCache;
+        (cache as any).ignored = this.ignoredCache;
+
+        cache.save();
     }
 
     /**

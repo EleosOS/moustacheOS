@@ -1,10 +1,19 @@
-import { bot } from '../index'
+import { bot, Points, Reminder, Upvote } from '../index'
+import { PointsModel, ReminderModel } from '../../other';
 import { MoustacheCommand } from './index';
 
 export const evalCmd: MoustacheCommand = {
     // Shamelessly copied from AxonCore (with some edits). You should check it out.
     execute: async (msg, args) => {
         try {
+            const modules = {
+                bot: bot,
+                points: Points,
+                remider: Reminder,
+                upvote: Upvote,
+                pointsmod: PointsModel,
+                remindmod: ReminderModel
+            }
 
             let evaled = await eval(args.join(' '));
             evaled = String(evaled);

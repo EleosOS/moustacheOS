@@ -88,9 +88,9 @@ const subRemoveAll: MoustacheCommand = {
 
 export const reminder: MoustacheCommand = {
     execute: async () => {
-        return 'See m!help for all ';
+        return 'See m!help reminder for all commands.';
     },
-    label: 'selfReminder',
+    label: 'reminder',
     options: {
         description: 'Sets an upvote reminder for yourself.',
         fullDescription:'Sets a new upvote reminder for yourself. Doesn\'t work if there is already a reminder set for you.',
