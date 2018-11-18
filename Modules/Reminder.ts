@@ -34,7 +34,7 @@ class ReminderClass {
      * @memberof ReminderClass
      */
     private async init(): Promise<void> {
-        const savedCache = await ReminderModel.findOne({ id: 1 });
+        const savedCache = await ReminderModel.findOne({ version: 1 });
         const currentTime = new Date().getMilliseconds();
 
         if (!savedCache) {
@@ -168,7 +168,7 @@ class ReminderClass {
      * @memberof ReminderClass
      */
     private async save() {
-        const cache = await ReminderModel.findOne({ id: 1 });
+        const cache = await ReminderModel.findOne({ version: 1 });
 
         if (!cache) {
             return new Error('Couldn\'t save cache to DB!');
