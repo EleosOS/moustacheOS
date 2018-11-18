@@ -22,17 +22,18 @@ class ReminderClass {
         this.reminderCache = new Map();
         this.ignoredCache = new Map();
 
-        this.init();
+        this.init()
+            .catch(e => console.log(e));
     }
 
     /**
      * Initialises the reminder cache by looking for an already saved cache and setting all stored timeouts again.
      *
      * @private
-     * @returns {void}
+     * @returns {Promise<void>}
      * @memberof ReminderClass
      */
-    private async init() {
+    private async init(): Promise<void> {
         const savedCache = await ReminderModel.findOne({ id: 1 });
         const currentTime = new Date().getMilliseconds();
 
@@ -65,11 +66,11 @@ class ReminderClass {
      * @param {string} id ID of the reminder
      * @param {number} delay The amount of time to wait until execute gets triggered (in ms)
      * @param {() => void} execute Function to execute after the delay
-     * @param {string} [userID] Associate a userID to the reminder
-     * @returns {boolean} True if successfully added, false if there already is a reminder with the same ID or associated userID is opted out.
+     * @param {string} [userID] Associate a userID to the reminder (Optional)
+     * @returns {Promise<boolean>} True if successfully added, false if there already is a reminder with the same ID or associated userID is opted out.
      * @memberof ReminderClass
      */
-    public async add(id: string, delay: number, execute: () => void, userID?: string) {
+    public async add(id: string, delay: number, execute: () => void, userID?: string): Promise<boolean> {
         // Don't set multiple reminders with the same ID
         if (this.reminderCache.has(id)) {
             return false;
@@ -111,10 +112,10 @@ class ReminderClass {
      * Manually remove a reminder.
      *
      * @param {string} id ID of the reminder
-     * @returns {boolean | null} True if successfully removed, null if the reminder wasn't found 
+     * @returns {Promise<boolean | null>} True if successfully removed, null if the reminder wasn't found 
      * @memberof ReminderClass
      */
-    public async remove(id: string) {
+    public async remove(id: string): Promise<boolean | null> {
         const reminder = this.reminderCache.get(id);
 
         if (!reminder) {
@@ -176,8 +177,11 @@ class ReminderClass {
         (cache as any).cache = this.reminderCache;
         (cache as any).ignored = this.ignoredCache;
 
+        cache.markModified('cache');
+        cache.markModified('ignored');
+
         try {
-            cache.save();
+            await cache.save();
         } catch (err) {
             console.log(err);
         }
