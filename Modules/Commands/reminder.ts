@@ -1,42 +1,6 @@
 import { Upvote, Reminder, bot } from '../index';
 import { MoustacheCommand } from './index';
 
-const subOptout: MoustacheCommand = {
-    execute: async (msg) => {
-        const optedOut = await Reminder.optout(msg.author.id);
-
-        if (optedOut) {
-            return 'You opted out of moustache reminders, all reminders for you have been deleted. If you want to recieve reminders again, see `m!help`.';
-        } else {
-            return 'You already opted out of moustache reminders. If you want to recieve reminders again, see `m!help`.';
-        }
-    },
-    label: 'optout',
-    options: {
-        description: 'Opt out of reminders.',
-        fullDescription: 'Opt out of any reminders that moustache will send you. You won\'t recieve any reminders unless you opt back in.',
-        usage: ''
-    }
-};
-
-const subOptin: MoustacheCommand = {
-    execute: async (msg) => {
-        const optedIn = await Reminder.optin(msg.author.id);
-
-        if (optedIn) {
-            return 'You opted back into moustache reminders.';
-        } else {
-            return 'You aren\'t opted out of moustache reminders. If you don\'t want to recieve reminders, see `m!help`.';
-        }
-    },
-    label: 'optin',
-    options: {
-        description: 'Opt back into reminders.',
-        fullDescription: 'Opt back into moustache reminders after you opted out. You will recieve reminders again after using this command.',
-        usage: ''
-    }
-}
-
 const subUpvote: MoustacheCommand = {
     execute: async (msg, args) => {
         if (!msg.member) {
@@ -96,6 +60,6 @@ export const reminder: MoustacheCommand = {
         fullDescription:'Sets a new upvote reminder for yourself. Doesn\'t work if there is already a reminder set for you.',
         usage: '',
     },
-    subcommands: [subOptin, subOptout, subRemoveAll, subUpvote]
+    subcommands: [subRemoveAll, subUpvote]
 };
 
