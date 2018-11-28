@@ -13,6 +13,10 @@ export const pointsChange: MoustacheCommand = {
 
         const userPoints = await Points.handle(userID, +amount);
 
+        if (!userPoints) {
+            return 'This action would result in negative points and has been aborted.'
+        }
+
         return `<@${userID}>'s points are now at ${userPoints}`;
     },
     label: 'pointsChange',

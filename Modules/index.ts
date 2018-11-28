@@ -4,3 +4,4 @@ export * from './Bot';
 export * from './Points';
 export * from './Express';
 export * from './Reminder';
+export * from './Transactions';
