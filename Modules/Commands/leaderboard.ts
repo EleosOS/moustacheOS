@@ -15,12 +15,12 @@ export const leaderboard: MoustacheCommand = {
 
             if (!member) {
                 fields.push({
-                    name: `${index++} | ???: ${element.userID}`,
+                    name: `${index + 1} | ???: ${element.userID}`,
                     value: `Points: ${element.points}`
                 });
             } else {
                 fields.push({
-                    name: `${index++} | ${member.user.username}#${member.discriminator}`,
+                    name: `${index + 1} | ${member.user.username}#${member.discriminator}`,
                     value: `Points: ${element.points}`
                 });
             }
