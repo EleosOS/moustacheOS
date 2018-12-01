@@ -13,7 +13,7 @@ class PointsClass {
     public async handle(userID: string, amount: number): Promise<number | false> {
         const userPoints = await this.find(userID);
         const newUserPoints = await this.change(userPoints, amount, false);
-        return newUserPoints;
+        return newUserPoints.points;
     }
 
     /**
@@ -51,6 +51,8 @@ class PointsClass {
             } else {
                 return false;
             }
+        } else {
+            userPoints.points += amount;
         }
 
         try {
