@@ -39,6 +39,7 @@ class ReminderClass {
 
         // setTimeout using execute and delay
         const timeout = setTimeout(async () => {
+            console.log('[reminder] Executing reminder ' + id)
             execute();
 
             this.reminderCache.delete(id);

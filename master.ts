@@ -9,7 +9,7 @@ mongoose.connect('mongodb://localhost:27017/moustacheDB', {
     autoReconnect: true
 })
     .then(() => console.log('[master] Connected to MongoDB.'))
-    .catch(console.log);
+    .catch(e => console.log(e));
 
 app.listen(port, () => {
     console.log(`[express] Listening at port ${port}`);
