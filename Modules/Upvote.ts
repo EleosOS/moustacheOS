@@ -33,7 +33,7 @@ class UpvoteClass {
             // The upvoter is on the server
             upvoter.addRole(config.upvoterRole, 'Upvote on DBL');
 
-            this.setReminder(upvoter);
+            this.setReminder(upvoter, false);
             this.sendUpvoteMessage(upvoter, req.body.isWeekend);
         }
     }
@@ -43,13 +43,14 @@ class UpvoteClass {
      *
      * @public
      * @param {Member} upvoter
+     * @param {boolean} manual Set to true if the reminder was set manually
      * @memberof UpvotePathClass
      */
-    public async setReminder(upvoter: Member) {
+    public async setReminder(upvoter: Member, manual: boolean) {
         const upvoteReminder = async () => {
             try {
                 const channel = await upvoter.user.getDMChannel();
-                const embed: object = {
+                const embed = {
                     embed: {
                         author: {
                             name: 'Hello!',
@@ -57,8 +58,15 @@ class UpvoteClass {
                         },
                         description: '[You can upvote Ease again.](https://discordbots.org/bot/365879035496235008/vote)',
                         color: 0x1ABC9C,
+                        footer: {
+                            text: 'This reminder was set automatically after you upvoted Ease 12h ago.'
+                        }
                     },
                 };
+
+                if (manual) {
+                    embed.embed.footer.text = 'This reminder was set manually by yourself or a ruler.'
+                }
                 return channel.createMessage(embed);
             }
             catch (e) {

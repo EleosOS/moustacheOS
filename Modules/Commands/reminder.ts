@@ -56,8 +56,8 @@ export const reminder: MoustacheCommand = {
     },
     label: 'reminder',
     options: {
-        description: 'Sets an upvote reminder for yourself.',
-        fullDescription:'Sets a new upvote reminder for yourself. Doesn\'t work if there is already a reminder set for you.',
+        description: 'Everything related to reminders.',
+        fullDescription:'',
         usage: '',
     },
     subcommands: [subRemoveAll, subUpvote]
