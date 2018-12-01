@@ -28,7 +28,7 @@ export const leaderboard: MoustacheCommand = {
 
         const embed = {
             embed: {
-                color: 0x1ABC9C,
+                color: 0xF1C40F,
                 fields: fields
             }
         }
