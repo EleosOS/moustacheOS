@@ -4,7 +4,7 @@ import { Upvote } from './index';
 import { config } from '../config';
 
 export const app = express();
-const moustacheInfo: string = `<img src="https://cdn.discordapp.com/avatars/417105627253309450/f470851f6fbff7cd1739b3a327ff9f46.png?size=128" alt="moustache logo"><br /><p>moustacheOS ver 2.0 (blonde)</p>`;
+const moustacheInfo: string = `<img src="https://cdn.discordapp.com/avatars/417105627253309450/4d77b46caa40b181f568082df1ca26ef.png?size=128" alt="moustache logo" height="64px" width="64px"><br /><p>moustacheOS ver 2.0 (blonde)</p>`;
 
 app.use(bodyParser.json());
 

@@ -54,10 +54,10 @@ class UpvoteClass {
                     embed: {
                         author: {
                             name: 'Hello!',
-                            icon_url: 'https://i.imgur.com/NoMc9tt.png',
+                            icon_url: 'https://i.imgur.com/ta5wKEp.png',
                         },
                         description: '[You can upvote Ease again.](https://discordbots.org/bot/365879035496235008/vote)',
-                        color: 0x1ABC9C,
+                        color: 0xF1C40F,
                         footer: {
                             text: 'This reminder was set automatically after you upvoted Ease 12h ago.'
                         }
