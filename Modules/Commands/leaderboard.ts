@@ -13,10 +13,17 @@ export const leaderboard: MoustacheCommand = {
         data.forEach((element: any, index) => {
             const member = ease!.members.find((u: any) => u.id === element.userID);
 
-            fields.push({
-                name: `${index++} | ${member.username}#${member.discriminator}`,
-                value: `Points: ${element.points}`
-            });
+            if (!member) {
+                fields.push({
+                    name: `${index++} | ???: ${element.userID}`,
+                    value: `Points: ${element.points}`
+                });
+            } else {
+                fields.push({
+                    name: `${index++} | ${member.user.username}#${member.discriminator}`,
+                    value: `Points: ${element.points}`
+                });
+            }
         })
 
         const embed = {
