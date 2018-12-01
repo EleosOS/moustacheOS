@@ -10,7 +10,7 @@ const subUpvote: MoustacheCommand = {
         if (msg.member.roles.includes('378293035852890124') && args.length > 0) {
             const ease = bot.guilds.get('365236789855649814');
             const member = ease!.members.find((u: any) => u.id === args[0]);
-            const set = await Upvote.setReminder(member);
+            const set = await Upvote.setReminder(member, true);
 
             if (set) {
                 return 'Reminder set for that user.';
@@ -18,7 +18,7 @@ const subUpvote: MoustacheCommand = {
                 return 'This user already has a reminder set.';
             }
         } else {
-            const set = await Upvote.setReminder(msg.member);
+            const set = await Upvote.setReminder(msg.member, true);
 
             if (set) {
                 return 'I will remind you to upvote in 12 hours.';

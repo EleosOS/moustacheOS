@@ -1,6 +1,6 @@
 {
   "name": "moustacheos",
-  "version": "blonde 2.0",
+  "version": "2.0 (blonde)",
   "description": "",
   "main": "master.ts",
   "scripts": {
@@ -10,7 +10,6 @@
     "pm2restart": "pm2 restart ./build/master.js"
   },
   "author": "",
-  "license": "ISC",
   "dependencies": {
     "@types/express": "^4.16.0",
     "@types/mongoose": "^5.3.1",
