@@ -1,17 +1,17 @@
 import { Member } from 'eris';
 import { Request } from 'express';
-import { bot, getSuperb, Points } from './index';
+import { bot, getSuperb, Points, Reminder } from './index';
 import { config } from '../config';
 
+/**
+ * Handles everything related to upvotes.
+ *
+ * @class UpvoteClass
+ */
 class UpvoteClass {
-    private reminderCache: string[];
-
-    constructor() {
-        this.reminderCache = [];
-    }
 
     /**
-     * Handles upvotes (no shit)
+     * Handle upvotes (no shit)
      *
      * @private
      * @param {Request} req
@@ -33,52 +33,52 @@ class UpvoteClass {
             // The upvoter is on the server
             upvoter.addRole(config.upvoterRole, 'Upvote on DBL');
 
-            this.setReminder(upvoter);
+            this.setReminder(upvoter, false);
             this.sendUpvoteMessage(upvoter, req.body.isWeekend);
         }
     }
 
     /**
-     * Sends a direct message to a user after 12 hours
+     * Send a direct message to a user after 12 hours.
      *
-     * @private
+     * @public
      * @param {Member} upvoter
+     * @param {boolean} manual Set to true if the reminder was set manually
      * @memberof UpvotePathClass
      */
-    private setReminder(upvoter: Member): void {
-
-        if (this.reminderCache.includes(upvoter.id)) {
-            console.log(`[upvote] Tried to set multiple reminders of same id for ${upvoter.username} (${upvoter.id}).`);
-            return;
-        }
-
-        console.log(`[upvote] Setting a reminder for ${upvoter.username}.`);
-        this.reminderCache.push(upvoter.id);
-
-        setTimeout(async () => {
+    public async setReminder(upvoter: Member, manual: boolean) {
+        const upvoteReminder = async () => {
             try {
                 const channel = await upvoter.user.getDMChannel();
-                const embed: object = {
+                const embed = {
                     embed: {
                         author: {
                             name: 'Hello!',
-                            icon_url: 'https://i.imgur.com/NoMc9tt.png',
+                            icon_url: 'https://i.imgur.com/ta5wKEp.png',
                         },
                         description: '[You can upvote Ease again.](https://discordbots.org/bot/365879035496235008/vote)',
-                        color: 0x1ABC9C,
+                        color: 0xF1C40F,
+                        footer: {
+                            text: 'This reminder was set automatically after you upvoted Ease 12h ago.'
+                        }
                     },
                 };
 
-                this.reminderCache.shift();
+                if (manual) {
+                    embed.embed.footer.text = 'This reminder was set manually by yourself or a ruler.'
+                }
                 return channel.createMessage(embed);
-            } catch (e) {
+            }
+            catch (e) {
                 console.log(e);
             }
-        }, 43200000);
+        };
+
+        return await Reminder.add(`upvote:${upvoter.id}`, 43200000, upvoteReminder, upvoter.id);
     }
 
     /**
-     * Sends the upvote message
+     * Send the upvote message
      *
      * @private
      * @param {Member} upvoter

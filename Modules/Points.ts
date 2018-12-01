@@ -3,17 +3,17 @@ import { PointsModel } from '../other/index';
 class PointsClass {
 
     /**
-     * Simpler way to increment points, basicly just calls all methods for you
+     * Simpler way to increment points, basicly just calls all methods for you. Doesn't force change.
      *
      * @param {string} userID
      * @param {number} amount Amount of points to add
-     * @returns {number} Given user's points
+     * @returns {number | null} Given user's points if successfull, false if points were not changed, null if something went wrong
      * @memberof Points
      */
-    public async handle(userID: string, amount: number): Promise<number> {
+    public async handle(userID: string, amount: number): Promise<number | false> {
         const userPoints = await this.find(userID);
-        const newUserPoints = await this.increment(userPoints, amount);
-        return newUserPoints.points;
+        const newUserPoints = await this.change(userPoints, amount, false);
+        return newUserPoints;
     }
 
     /**
@@ -34,25 +34,30 @@ class PointsClass {
     }
 
     /**
-     * Increments the documents points by given amount
+     * Changes the documents points by given amount
      *
      * @param {Document} userPoints
-     * @param {number} amount Amount of points to add
-     * @returns Saved Points Document
+     * @param {number} amount Amount of points to add/remove
+     * @param {boolean} force Force Points to change even if they will turn negative, changes to 0 then
+     * @returns Saved Points Document if successful/forced, false if change would result in negative points, null if something went wrong
      * @memberof Points
      */
-    public async increment(userPoints: any, amount: number) {
+    public async change(userPoints: any, amount: number, force: boolean) {
         let saved;
 
-        // I know userPoints is a Document but TypeScript wont let me access its properties, because it doesn't know they exist.
-        // tslint:disable-next-line:no-unused-expression goddamit tslint
-        userPoints.points += amount;
+        if ((userPoints.points + amount) < 0) {
+            if (force) {
+                userPoints.points += amount;
+            } else {
+                return false;
+            }
+        }
 
         try {
             saved = await userPoints.save();
         } catch (err) {
             console.log(err);
-            saved = '?';
+            saved = null;
         }
 
         return saved;
