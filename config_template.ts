@@ -9,4 +9,5 @@ export const config = {
     token: '123456789',
     upvoterChannel: '123456789',
     upvoterRole: '123456789',
+    embedColor: 0xF1C40F
 };
