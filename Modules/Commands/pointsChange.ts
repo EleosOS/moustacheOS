@@ -1,9 +1,10 @@
-import { Points } from '../index';
+import { Transactions } from '../index';
 import { MoustacheCommand } from './index';
 
 export const pointsChange: MoustacheCommand = {
     execute: async (msg, args) => {
         const [ userID, amount ] = args;
+        let userPoints;
 
         if (!userID || !amount) {
             return 'Not enough arguments.';
@@ -11,13 +12,17 @@ export const pointsChange: MoustacheCommand = {
             return 'Amount is not a number.';
         }
 
-        const userPoints = await Points.handle(userID, +amount);
+        if (+amount < 0) {
+            userPoints = await Transactions.substract(userID, +amount, 'Changed by a ruler');
+        } else {
+            userPoints = await Transactions.add(userID, +amount, 'Changed by a ruler');
+        }
 
         if (!userPoints) {
             return 'This action would result in negative points and has been aborted.'
         }
 
-        return `<@${userID}>'s points are now at ${userPoints}`;
+        return `<@${userID}>'s points are now at ${userPoints}.`;
     },
     label: 'pointsChange',
     options: {

@@ -31,12 +31,13 @@ class TransactionsClass {
      *
      * @param {string} userID
      * @param {number} amount Amount of points to add
-     * @returns Saved Transactions Document or null if something went wrong
+     * @returns Current points or false if something went wrong
      * @memberof Transactions
      */
     public async add(userID: string, amount: number, reason: string) {
         const userTransactions: any = await this.find(userID);
-        let saved;
+        // Since only positive amounts will be passed here, Points.handle() should never return null.
+        let userPoints = await Points.handle(userID, +amount);
 
         const transaction: MoustacheTransaction = {
             origin: 'moustache',
@@ -45,9 +46,6 @@ class TransactionsClass {
             reason: reason
         };
 
-        // Since only positive amounts will be passed here, Points.handle() should never return null.
-        Points.handle(userID, +amount);
-
         userTransactions.transactions.unshift(transaction);
 
         if (userTransactions.transactions.length > 10) {
@@ -55,13 +53,13 @@ class TransactionsClass {
         }
 
         try {
-            saved = await userTransactions.save();
+            await userTransactions.save();
         } catch (err) {
             console.log(err);
-            saved = null;
+            userPoints = false;
         }
 
-        return saved;
+        return userPoints;
     }
 
     /**
@@ -69,13 +67,12 @@ class TransactionsClass {
      *
      * @param {string} userID
      * @param {number} amount Amount of points to remove
-     * @returns Saved Transactions Document if successful, false if substraction would result in negative points or null if an error occurred
+     * @returns Current points if successful, false if substraction would result in negative points or if an error occurred
      * @memberof Points
      */
     public async substract(userID: string, amount: number, reason: string) {
         const userTransactions: any = await this.find(userID);
-        const userPoints = await Points.handle(userID, -amount);
-        let saved;
+        let userPoints = await Points.handle(userID, -amount);
 
         if (!userPoints) {
             return false;
@@ -95,13 +92,13 @@ class TransactionsClass {
         }
 
         try {
-            saved = await userTransactions.save();
+            await userTransactions.save();
         } catch (err) {
             console.log(err);
-            saved = null;
+            userPoints = false;
         }
 
-        return saved;
+        return userPoints;
     }
 
     /**
