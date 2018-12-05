@@ -1,7 +1,6 @@
 import { Member } from 'eris';
 import { Request } from 'express';
-import { bot, getSuperb, Points, Reminder } from './index';
-import { config } from '../config';
+import { bot, getSuperb, Points, Reminder, config } from './index';
 
 /**
  * Handles everything related to upvotes.
@@ -57,7 +56,7 @@ class UpvoteClass {
                             icon_url: 'https://i.imgur.com/ta5wKEp.png',
                         },
                         description: '[You can upvote Ease again.](https://discordbots.org/bot/365879035496235008/vote)',
-                        color: 0xF1C40F,
+                        color: config.embedColor,
                         footer: {
                             text: 'This reminder was set automatically after you upvoted Ease 12h ago.'
                         }

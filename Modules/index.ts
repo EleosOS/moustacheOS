@@ -5,3 +5,4 @@ export * from './Points';
 export * from './Express';
 export * from './Reminder';
 export * from './Transactions';
+export * from '../config'; // This is sorta an outcast, but should make configuration in modules easier in the future

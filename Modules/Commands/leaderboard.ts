@@ -1,5 +1,5 @@
 import { MoustacheCommand } from './index';
-import { bot } from '../index';
+import { bot, config } from '../index';
 
 import { PointsModel } from '../../other/Points.schema';
 
@@ -28,7 +28,7 @@ export const leaderboard: MoustacheCommand = {
 
         const embed = {
             embed: {
-                color: 0xF1C40F,
+                color: config.embedColor,
                 fields: fields
             }
         }
