@@ -1,5 +1,5 @@
 import { TransactionsModel } from '../other/index';
-import { Points } from './index';
+import { Points, bot } from './index';
 
 interface MoustacheTransaction {
     origin: string; // userID
@@ -111,6 +111,10 @@ class TransactionsClass {
      * @memberof Points
      */
     public async transfer(originID: string, recipientID: string, amount: number, reason: string) {
+        if (!this.exists(recipientID)) {
+            return null;
+        }
+        
         // This looks pretty bad, sorry.
         const originTransactions: any = await this.find(originID);
         const recipientTransactions: any = await this.find(recipientID);
@@ -163,6 +167,25 @@ class TransactionsClass {
         });
 
         return await userTransactions.save();
+    }
+
+    /**
+     *  Checks if a user is on the server
+     *
+     * @private
+     * @param {string} userID
+     * @returns {boolean}
+     * @memberof TransactionsClass
+     */
+    private async exists(userID: string) {
+        const ease = bot.guilds.get('365236789855649814');
+        const user = ease!.members.get(userID);
+
+        if (user) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
