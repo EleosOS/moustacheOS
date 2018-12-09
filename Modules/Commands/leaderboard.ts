@@ -1,7 +1,6 @@
-import { MoustacheCommand } from './index';
-import { bot, config } from '../index';
-
-import { PointsModel } from '../../other/Points.schema';
+import { MoustacheCommand } from './';
+import { bot, config } from '../';
+import { PointsModel } from '../../other/';
 
 export const leaderboard: MoustacheCommand = {
     execute: async (msg) => {

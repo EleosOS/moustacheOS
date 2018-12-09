@@ -1,5 +1,5 @@
-import { Reminder, Transactions, config } from '../index';
-import { MoustacheCommand } from './index';
+import { MoustacheCommand } from './';
+import { Reminder, Transactions, config } from '../';
 
 export const daily: MoustacheCommand = {
     execute: async (msg) => {

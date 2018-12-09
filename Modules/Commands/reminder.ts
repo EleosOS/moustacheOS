@@ -1,5 +1,5 @@
-import { Upvote, Reminder, bot } from '../index';
-import { MoustacheCommand } from './index';
+import { Upvote, Reminder, bot } from '../';
+import { MoustacheCommand } from './';
 
 const subUpvote: MoustacheCommand = {
     execute: async (msg, args) => {

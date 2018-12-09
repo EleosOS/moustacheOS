@@ -1,16 +1,19 @@
-import { Message, CommandOptions } from 'eris';
-import { reminder } from './reminder';
+import { daily } from './daily';
 import { evalCmd } from './eval';
 import { leaderboard } from './leaderboard';
+import { points } from './points';
 import { pointsChange } from './pointsChange';
-import { daily } from './daily';
+import { reminder } from './reminder';
+
+import { Message, CommandOptions } from 'eris';
 
 export const commands: MoustacheCommand[] = [
-    reminder,
+    daily,
     evalCmd,
-    pointsChange,
+    reminder,
     leaderboard,
-    daily
+    points,
+    pointsChange
 ];
 
 export interface MoustacheCommand {

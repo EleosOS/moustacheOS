@@ -1,7 +1,7 @@
 import { TransactionsModel } from '../other/index';
 import { Points, bot } from './index';
 
-interface MoustacheTransaction {
+export interface MoustacheTransaction {
     origin: string; // userID
     recipient: string; // also userID or "moustache"
     amount: number; // Amount of Points that were transfered

@@ -1,5 +1,5 @@
-import { Transactions } from '../index';
-import { MoustacheCommand } from './index';
+import { Transactions } from '../';
+import { MoustacheCommand } from './';
 
 export const pointsChange: MoustacheCommand = {
     execute: async (msg, args) => {
