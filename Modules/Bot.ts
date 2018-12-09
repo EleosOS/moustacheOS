@@ -1,6 +1,6 @@
 import { CommandClient } from 'eris';
 import { commands } from './Commands';
-import { config } from '../config';
+import { config } from './';
 
 const commandOptions = {
     description: 'Community Bot for the Ease server',

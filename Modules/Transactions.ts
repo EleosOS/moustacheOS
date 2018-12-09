@@ -1,5 +1,5 @@
-import { TransactionsModel } from '../other/index';
-import { Points, bot } from './index';
+import { Points, bot } from './';
+import { TransactionsModel } from '../other/';
 
 export interface MoustacheTransaction {
     origin: string; // userID

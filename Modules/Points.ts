@@ -1,5 +1,5 @@
-import { PointsModel } from '../other/index';
-import { bot } from './index';
+import { bot } from './';
+import { PointsModel } from '../other/';
 
 class PointsClass {
 

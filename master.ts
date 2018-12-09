@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { app } from './Modules/index';
+import { app } from './Modules/';
 const port: number = 3001;
 
 console.log('--------------------\nStarting moustache\n--------------------');
