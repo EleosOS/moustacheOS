@@ -31,7 +31,6 @@ class TransactionsClass {
      *
      * @param {string} userID
      * @param {number} amount Amount of points to add
-     * @param {boolean} admin If the points are coming from the bot (for commands like pointsChange)
      * @returns Current points or false if something went wrong
      * @memberof Transactions
      */
