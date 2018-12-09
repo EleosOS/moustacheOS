@@ -31,6 +31,7 @@ class TransactionsClass {
      *
      * @param {string} userID
      * @param {number} amount Amount of points to add
+     * @param {boolean} admin If the points are coming from the bot (for commands like pointsChange)
      * @returns Current points or false if something went wrong
      * @memberof Transactions
      */
@@ -114,16 +115,17 @@ class TransactionsClass {
         if (!this.exists(recipientID)) {
             return null;
         }
+
+        const [originTransactions, recipientTransactions, originPoints]: any = await Promise.all([
+            this.find(originID),
+            this.find(recipientID),
+            Points.handle(originID, -amount)
+        ]);
         
-        // This looks pretty bad, sorry.
-        const originTransactions: any = await this.find(originID);
-        const recipientTransactions: any = await this.find(recipientID);
-
-        const originPoints = await Points.handle(originID, -amount);
-        await Points.handle(originID, +amount);
-
         if (!originPoints) {
             return false;
+        } else {
+            await Points.handle(recipientID, +amount);
         }
 
         const transaction: MoustacheTransaction = {
@@ -138,13 +140,18 @@ class TransactionsClass {
 
         if (originTransactions.transactions.length > 10) {
             originTransactions.transactions.pop();
-        } else if (recipientTransactions.transactions.length > 10) {
+        }
+
+        if (recipientTransactions.transactions.length > 10) {
             recipientTransactions.transactions.pop();
         }
 
         try {
-            await originTransactions.save();
-            await recipientTransactions.save();
+            Promise.all([
+                originTransactions.save(),
+                recipientTransactions.save()
+            ]);
+
             return true;
         } catch (e) {
             console.log(e);
@@ -166,7 +173,7 @@ class TransactionsClass {
             userID: userID,
         });
 
-        return await userTransactions.save();
+        return userTransactions.save();
     }
 
     /**
@@ -177,7 +184,7 @@ class TransactionsClass {
      * @returns {boolean}
      * @memberof TransactionsClass
      */
-    private async exists(userID: string) {
+    private exists(userID: string) {
         const ease = bot.guilds.get('365236789855649814');
         const user = ease!.members.get(userID);
 

@@ -1,4 +1,5 @@
 import { PointsModel } from '../other/index';
+import { bot } from './index';
 
 class PointsClass {
 
@@ -56,7 +57,12 @@ class PointsClass {
         }
 
         try {
-            saved = await userPoints.save();
+            const finish = await Promise.all([
+                userPoints.save(),
+                this.rankcheck(userPoints)
+            ]);
+
+            saved = finish[0]
         } catch (err) {
             console.log(err);
             saved = null;
@@ -80,6 +86,49 @@ class PointsClass {
         });
 
         return await userPoints.save();
+    }
+
+    private async rankcheck(userPoints: any) {
+        const ease = bot.guilds.get('365236789855649814');
+        const ranks = {
+            coal: {
+                id: '515502089812705291',
+                points: 1
+            },
+            bronze: {
+                id: '515502168569282562',
+                points: 50
+            },
+            silver: {
+                id: '515502216493269012',
+                points: 100
+            },
+            gold: {
+                id: '515502257043800066',
+                points: 150
+            }
+        };
+        let member;
+        const giveRole = async (rank: 'coal' | 'bronze' | 'silver' | 'gold') => {
+            member = ease!.members.get(userPoints.userID);
+
+            if (!member) {
+                return;
+            }
+
+            await member.addRole(ranks.coal.id, `Earned ${ranks[rank].points} points`);
+        }
+
+        if (userPoints.points > ranks.coal.points) {
+            giveRole('coal');
+        } else if (userPoints.points > ranks.bronze.points) {
+            giveRole('bronze');
+        } else if (userPoints.points > ranks.silver.points) {
+            giveRole('silver');
+        } else if (userPoints.points > ranks.gold.points) {
+            giveRole('gold');
+        }
+
     }
 }
 
