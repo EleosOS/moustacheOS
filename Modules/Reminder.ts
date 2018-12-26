@@ -35,8 +35,6 @@ class ReminderClass {
             return false;
         }
 
-        const currentTime: number = new Date().getMilliseconds();
-
         // setTimeout using execute and delay
         const timeout = setTimeout(async () => {
             console.log('[reminder] Executing reminder ' + id)
