@@ -11,6 +11,7 @@ export const evalCmd: MoustacheCommand = {
                 bot: bot,
                 points: Points,
                 upvote: Upvote,
+                reminder: Reminder,
                 pointsmod: PointsModel,
             }
 

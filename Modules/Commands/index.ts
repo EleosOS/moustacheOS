@@ -4,6 +4,7 @@ import { leaderboard } from './leaderboard';
 import { points } from './points';
 import { pointsChange } from './pointsChange';
 import { reminder } from './reminder';
+import { ping } from './ping';
 
 import { Message, CommandOptions } from 'eris';
 
@@ -13,7 +14,8 @@ export const commands: MoustacheCommand[] = [
     reminder,
     leaderboard,
     points,
-    pointsChange
+    pointsChange,
+    ping
 ];
 
 export interface MoustacheCommand {

@@ -14,11 +14,9 @@ class UpvoteClass {
      *
      * @private
      * @param {Request} req
-     * @param {Response} res
-     * @returns {void}
-     * @memberof UpvotePathClass
+     * @memberof UpvoteClass
      */
-    public handle(req: Request): void {
+    public async handle(req: Request) {
         console.log(`[upvote] Upvote recieved! Searching for ${req.body.user}...`);
 
         const ease = bot.guilds.get('365236789855649814');
@@ -32,8 +30,14 @@ class UpvoteClass {
             // The upvoter is on the server
             upvoter.addRole(config.upvoterRole, 'Upvote on DBL');
 
-            this.setReminder(upvoter, false);
-            this.sendUpvoteMessage(upvoter, req.body.isWeekend);
+            const reminder = await this.setReminder(upvoter, false);
+
+            if (reminder) {
+                this.sendUpvoteMessage(upvoter, req.body.isWeekend);
+            } else {
+                console.log('[upvote] Already has a reminder set.')
+                return;
+            }
         }
     }
 
@@ -43,7 +47,7 @@ class UpvoteClass {
      * @public
      * @param {Member} upvoter
      * @param {boolean} manual Set to true if the reminder was set manually
-     * @memberof UpvotePathClass
+     * @memberof UpvoteClass
      */
     public async setReminder(upvoter: Member, manual: boolean) {
         const upvoteReminder = async () => {
@@ -82,7 +86,7 @@ class UpvoteClass {
      * @private
      * @param {Member} upvoter
      * @param {boolean} isWeekend
-     * @memberof UpvotePathClass
+     * @memberof UpvoteClass
      */
     private async sendUpvoteMessage(upvoter: Member, isWeekend: boolean) {
         let msg: string = '';
