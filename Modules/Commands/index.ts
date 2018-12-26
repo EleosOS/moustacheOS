@@ -2,7 +2,6 @@ import { daily } from './daily';
 import { evalCmd } from './eval';
 import { leaderboard } from './leaderboard';
 import { points } from './points';
-import { pointsChange } from './pointsChange';
 import { reminder } from './reminder';
 import { ping } from './ping';
 
@@ -14,7 +13,6 @@ export const commands: MoustacheCommand[] = [
     reminder,
     leaderboard,
     points,
-    pointsChange,
     ping
 ];
 

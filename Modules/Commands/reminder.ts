@@ -32,7 +32,7 @@ const subUpvote: MoustacheCommand = {
     options: {
         description: 'Set an upvote reminder.',
         fullDescription: 'Set a reminder to upvote for yourself (or for a specified user if a Ruler is using the command).',
-        usage: '(userID)'
+        usage: '`userID`'
     }
 }
 
