@@ -35,6 +35,7 @@ class UpvoteClass {
             if (reminder) {
                 this.sendUpvoteMessage(upvoter, req.body.isWeekend);
             } else {
+                console.log('[upvote] Already has a reminder set.')
                 return;
             }
         }
