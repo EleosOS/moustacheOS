@@ -33,6 +33,7 @@ class UpvoteClass {
             upvoter.addRole(config.upvoterRole, 'Upvote on DBL');
 
             const reminder = this.setReminder(upvoter, false);
+            
             if (reminder) {
                 this.sendUpvoteMessage(upvoter, req.body.isWeekend);
             } else {
