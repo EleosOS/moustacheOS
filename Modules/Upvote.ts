@@ -32,8 +32,12 @@ class UpvoteClass {
             // The upvoter is on the server
             upvoter.addRole(config.upvoterRole, 'Upvote on DBL');
 
-            this.setReminder(upvoter, false);
-            this.sendUpvoteMessage(upvoter, req.body.isWeekend);
+            const reminder = this.setReminder(upvoter, false);
+            if (reminder) {
+                this.sendUpvoteMessage(upvoter, req.body.isWeekend);
+            } else {
+                return;
+            }
         }
     }
 
