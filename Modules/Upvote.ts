@@ -1,6 +1,6 @@
 import { Member } from 'eris';
 import { Request } from 'express';
-import { bot, getSuperb, Points, Reminder, config } from './';
+import { bot, getSuperb, Transactions, Reminder, config } from './';
 
 /**
  * Handles everything related to upvotes.
@@ -92,10 +92,10 @@ class UpvoteClass {
         let msg: string = '';
 
         if (isWeekend) {
-                const points = await Points.handle(upvoter.id, 2);
+                const points = await Transactions.add(upvoter.id, 2, 'Upvote on DBL (Voting Multiplier).');
                 msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL during an active voting multiplier! Points: ${points}`;
             } else {
-                const points = await Points.handle(upvoter.id, 1);
+                const points = await Transactions.add(upvoter.id, 1, 'Upvote on DBL.');
                 msg = `${getSuperb()}, <@${upvoter.id}> has upvoted on DBL! Points: ${points}`;
             }
 
