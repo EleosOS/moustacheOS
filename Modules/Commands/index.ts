@@ -19,11 +19,11 @@ export const commands: MoustacheCommand[] = [
 export interface MoustacheCommand {
     execute: (msg: Message, args: string[]) => Promise<string | Message>;
     label: string;
-    options: MoustacheOptions;
+    options: MoustacheCommandOptions;
     subcommands?: MoustacheCommand[];
 }
 
-interface MoustacheOptions extends CommandOptions {
+interface MoustacheCommandOptions extends CommandOptions {
     description: string,
     fullDescription: string,
     usage: string,
