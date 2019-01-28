@@ -4,7 +4,7 @@ import { PointsModel } from '../other/';
 class PointsClass {
 
     /**
-     * Simpler way to increment points, basicly just calls all methods for you. Doesn't force change.
+     * Simpler way to increment points, basicly just calls all methods for you. Doesn't force change, creates new documents.
      *
      * @param {string} userID
      * @param {number} amount Amount of points to add
@@ -12,7 +12,7 @@ class PointsClass {
      * @memberof Points
      */
     public async handle(userID: string, amount: number): Promise<number | false> {
-        const userPoints = await this.find(userID);
+        const userPoints = await this.find(userID, false);
         const newUserPoints = await this.change(userPoints, amount, false);
         return newUserPoints.points;
     }
@@ -21,16 +21,19 @@ class PointsClass {
      * Searches DB for points assigned by the userID
      *
      * @param {string} userID
-     * @returns Points Document, or creates a new one
+     * @param {boolean} noCreate True if no new document should be created
+     * @returns Points Document, creates a new one if not noCreate, null if there is nothing.
      * @memberof Points
      */
-    public async find(userID: string) {
+    public async find(userID: string, noCreate: boolean) {
         const userPoints = await PointsModel.findOne({ userID: userID });
 
         if (userPoints) {
             return userPoints;
-        } else {
+        } else if (!noCreate) {
             return this.create(userID);
+        } else {
+            return null;
         }
     }
 
