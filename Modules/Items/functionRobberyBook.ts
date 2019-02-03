@@ -1,5 +1,5 @@
 import { MoustacheItem } from './';
-import { bot, Transactions } from '../';
+import { Transactions } from '../';
 import { PointsModel } from '../../other';
 
 const TransactionMessages = [
@@ -25,8 +25,8 @@ export const FunctionRobberyBook: MoustacheItem = {
     name: 'Le Soele\'s "How to rob your friend\'s internet points"',
     type: 'function',
     price: 35,
-    execute: async (msg, args) => {
-        const victimPoints = rollVictim();
+    execute: async (msg) => {
+        const victimPoints = await rollVictim();
         const robbedPoints = Math.floor(Math.random() * ((victimPoints as any).points * 0.7)) + 1;
         const hidden = Math.random() >= 0.5;
 
@@ -36,7 +36,11 @@ export const FunctionRobberyBook: MoustacheItem = {
 
             
         } else {
-            Transactions.transfer()
+            Transactions.transfer((victimPoints as any).id, msg.author.id, robbedPoints, `<@${msg.author.id}> stole from <@${(victimPoints as any).id}>`);
         }
+
+        const hiddenMsg = hidden ? 'You were not detected.' : 'You were detected.';
+        const successMsg = await msg.channel.createMessage(robbedPoints + ' points have been added to your points. ' + hiddenMsg);
+        return successMsg.delete();
     }
 }
