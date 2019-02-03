@@ -48,7 +48,7 @@ class TransactionsClass {
 
         userTransactions.transactions.unshift(transaction);
 
-        if (userTransactions.transactions.length > 10) {
+        if (userTransactions.transactions.length > 20) {
             userTransactions.transactions.pop();
         }
 
@@ -87,7 +87,7 @@ class TransactionsClass {
         
         userTransactions.transactions.unshift(transaction);
 
-        if (userTransactions.transactions.length > 10) {
+        if (userTransactions.transactions.length > 20) {
             userTransactions.transactions.pop();
         }
 
@@ -137,11 +137,11 @@ class TransactionsClass {
         originTransactions.transactions.unshift(transaction);
         recipientTransactions.transactions.unshift(transaction);
 
-        if (originTransactions.transactions.length > 10) {
+        if (originTransactions.transactions.length > 20) {
             originTransactions.transactions.pop();
         }
 
-        if (recipientTransactions.transactions.length > 10) {
+        if (recipientTransactions.transactions.length > 20) {
             recipientTransactions.transactions.pop();
         }
 
