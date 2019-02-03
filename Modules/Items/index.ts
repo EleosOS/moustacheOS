@@ -8,6 +8,7 @@ import { RoleHairyBlonde } from './roleHairyBlonde';
 import { RoleUpvoterPlus } from './roleUpvoterPlus';
 
 export interface MoustacheItem {
+    id: String;
     name: String;
     type: 'role' | 'function';
     price: Number;
@@ -22,7 +23,7 @@ const FunctionItemsArr = [
 ];
 
 FunctionItemsArr.forEach((item, i) => {
-    FunctionItems.set(i, item);
+    FunctionItems.set(item.name, item);
 })
 
 
@@ -36,5 +37,5 @@ const RoleItemsArr = [
 ];
 
 RoleItemsArr.forEach((item, i) => {
-    RoleItems.set(i, item);
+    RoleItems.set(item.name, item);
 })

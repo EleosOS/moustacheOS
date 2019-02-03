@@ -1,6 +1,7 @@
 import { MoustacheItem } from './';
 
 export const FunctionFoo: MoustacheItem = {
+    id: 'foo',
     name: 'Foo',
     type: 'function',
     price: 50,

@@ -1,6 +1,7 @@
 import { MoustacheItem } from './';
 
 export const RoleBrilliantRed: MoustacheItem = {
+    id: 'hypesquadred',
     name: 'Absolutlely Brilliant Red',
     type: 'role',
     price: 20,

@@ -1,25 +1,76 @@
+import { FunctionItems, RoleItems } from './Items';
 import { InventoryModel } from '../other/index';
 
 class InventoryClass {
 
-    createInv(userID: string, itemID: number) {
-        
+    /**
+     * Searches DB for the inventory of the userID, creates one if none was found
+     *
+     * @param {string} userID
+     * @returns User Inventory Document
+     * @memberof InventoryClass
+     */
+    async find(userID: string) {
+        const userInv = await InventoryModel.findOne({ userID: userID });
+
+        if (userInv) {
+            return userInv;
+        } else {
+            return await this.create(userID);
+        }
     }
 
-    getInv(userID: string) {
+
+    /**
+     * Adds itemID to userID's inventory
+     *
+     * @param {string} userID
+     * @param {number} itemID
+     * @memberof InventoryClass
+     */
+    async addItem(userID: string, itemID: string) {
+        const userInv = await this.find(userID);
+
+        if ((userInv as any).items.has(itemID)) {
+            return false;
+        } else {
+            (userInv as any).items.set(itemID, undefined);
+        }
+
+        return await userInv.save();
+    }
+
+    async removeItem(userID: string, itemID: string) {
+        const userInv = await this.find(userID);
+
+        if (!(userInv as any).items.has(itemID)) {
+            return false;
+        } else {
+            (userInv as any).items.delete(itemID);
+        }
+
+        return await userInv.save();
+    }
+
+    useItem(userID: string, itemID: string) {
 
     }
 
-    addItem(userID: string, itemID: number) {
+    /**
+     * Creates a user inventory without any items
+     *
+     * @private
+     * @param {string} userID
+     * @returns User Inventory Document
+     * @memberof InventoryClass
+     */
+    private async create(userID: string) {
+        const userInv = new InventoryModel({
+            userID: userID,
+            items: new Map()
+        });
 
-    }
-
-    removeItem(userID: string, itemID: number) {
-
-    }
-
-    useItem(userID: string, itemID: number) {
-
+        return await userInv.save();
     }
 }
 

@@ -31,7 +31,7 @@ class PointsClass {
         if (userPoints) {
             return userPoints;
         } else if (!noCreate) {
-            return this.create(userID);
+            return await this.create(userID);
         } else {
             return null;
         }

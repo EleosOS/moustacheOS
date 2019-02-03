@@ -22,6 +22,7 @@ async function rollVictim() {
 }
 
 export const FunctionRobberyBook: MoustacheItem = {
+    id: 'robberybook',
     name: 'Le Soele\'s "How to rob your friend\'s internet points"',
     type: 'function',
     price: 35,
