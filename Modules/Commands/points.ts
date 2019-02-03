@@ -1,6 +1,7 @@
 import { MoustacheCommand } from './';
-import { bot, Transactions } from '../';
+import { bot, Transactions, Points } from '../';
 import { PointsModel } from '../../other/';
+import { truncate } from 'fs';
 
 const subPointsChange: MoustacheCommand = {
     execute: async (msg, args) => {
@@ -38,7 +39,7 @@ const subPointsChange: MoustacheCommand = {
 
 export const points: MoustacheCommand = {
     execute: async (msg, args) => {
-        const data = await PointsModel.find({ userID: args[0]});
+        const data = await Points.find(args[0], true);
         const ease = bot.guilds.get('365236789855649814');
         const member = ease!.members.find((u: any) => u.id === args[0]);
         let string = `${member.user.username}#${member.discriminator} currently has ${(data as any).points} points.`
