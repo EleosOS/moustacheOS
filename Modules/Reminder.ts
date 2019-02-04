@@ -1,4 +1,4 @@
-import { Message } from "eris";
+import { Message } from 'eris';
 
 export interface MoustacheReminder {
     id: string;
@@ -45,10 +45,10 @@ class ReminderClass {
 
         // construct the reminder object
         const reminder: MoustacheReminder = {
-            id: id,
-            userID: userID,
-            timeout: timeout,
-            execute: execute
+            id,
+            userID,
+            timeout,
+            execute
         };
 
         // add reminder to this.reminderCache
@@ -75,7 +75,7 @@ class ReminderClass {
         clearTimeout(reminder.timeout);
 
         this.reminderCache.delete(id);
-        
+
         return true;
     }
 

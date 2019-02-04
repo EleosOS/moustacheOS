@@ -1,5 +1,5 @@
 import { PointsModel } from '../../other';
-import { bot, Points, Reminder, Upvote } from '../'
+import { bot, Points, Reminder, Upvote } from '../';
 import { MoustacheCommand } from './';
 import { inspect } from 'util';
 
@@ -8,7 +8,7 @@ export const evalCmd: MoustacheCommand = {
     execute: async (msg, args) => {
         try {
             const modules = {
-                bot: bot,
+                bot,
                 points: Points,
                 upvote: Upvote,
                 reminder: Reminder,
@@ -22,19 +22,19 @@ export const evalCmd: MoustacheCommand = {
             } else {
                 evaled = String(evaled);
             }
-    
+
             // Just in case.
             evaled = evaled.split(bot.token).join('[The amount of facial hair covering this part of the message is not allowing you to read it.]');
-    
+
             const charlength = evaled.length;
-    
+
             if (evaled.length === 0) {
                 return;
             }
-    
+
             if (evaled.length > 2000) {
                 evaled = evaled.match(/[\s\S]{1,1900}[\n\r]/g) || [];
-            if (evaled.length > 3) {
+                if (evaled.length > 3) {
                 bot.createMessage(msg.channel.id, `Cut the response! [${evaled.length} | ${charlength}]`);
                 bot.createMessage(msg.channel.id, `\`\`\`js\n${evaled[0]}\`\`\``);
                 bot.createMessage(msg.channel.id, `\`\`\`js\n${evaled[1]}\`\`\``);
@@ -47,7 +47,7 @@ export const evalCmd: MoustacheCommand = {
                     });
                 }
             }
-        
+
             return bot.createMessage(msg.channel.id, `\`\`\`js\n${evaled}\`\`\``);
         } catch (err) {
             console.log(err.stack)

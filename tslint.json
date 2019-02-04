@@ -8,11 +8,12 @@
         "indent": [true, "spaces", 4],
         "quotemark": [true, "single"],
         "ordered-imports": false,
-        "max-line-length": false,
-        "object-literal-shorthand": false,
-        "no-console": false,
         "object-literal-sort-keys": false,
-        "interface-name": false,
+        "trailing-comma": false,
+        "no-console": false,
+        "max-line-length": false,
+        "no-eval": false,
+        "interface-name": false
     },
     "rulesDirectory": []
 }

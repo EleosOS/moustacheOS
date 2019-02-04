@@ -17,7 +17,7 @@ class TransactionsClass {
      * @memberof Points
      */
     public async find(userID: string) {
-        const userTransactions = await TransactionsModel.findOne({ userID: userID });
+        const userTransactions = await TransactionsModel.findOne({ userID });
 
         if (userTransactions) {
             return userTransactions;
@@ -42,8 +42,8 @@ class TransactionsClass {
         const transaction: MoustacheTransaction = {
             origin: 'moustache',
             recipient: userID,
-            amount: amount,
-            reason: reason
+            amount,
+            reason
         };
 
         userTransactions.transactions.unshift(transaction);
@@ -81,10 +81,10 @@ class TransactionsClass {
         const transaction: MoustacheTransaction = {
             origin: userID,
             recipient: 'moustache',
-            amount: amount,
-            reason: reason
+            amount,
+            reason
         };
-        
+
         userTransactions.transactions.unshift(transaction);
 
         if (userTransactions.transactions.length > 20) {
@@ -120,7 +120,7 @@ class TransactionsClass {
             this.find(recipientID),
             Points.handle(originID, -amount)
         ]);
-        
+
         if (!originPoints) {
             return false;
         } else {
@@ -130,10 +130,10 @@ class TransactionsClass {
         const transaction: MoustacheTransaction = {
             origin: originID,
             recipient: recipientID,
-            amount: amount,
-            reason: reason
+            amount,
+            reason
         };
-        
+
         originTransactions.transactions.unshift(transaction);
         recipientTransactions.transactions.unshift(transaction);
 
@@ -169,7 +169,7 @@ class TransactionsClass {
     private async create(userID: string) {
         const userTransactions = new TransactionsModel({
             transactions: [],
-            userID: userID,
+            userID,
         });
 
         return userTransactions.save();

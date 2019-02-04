@@ -10,8 +10,8 @@ class InventoryClass {
      * @returns User Inventory Document
      * @memberof InventoryClass
      */
-    async find(userID: string) {
-        const userInv = await InventoryModel.findOne({ userID: userID });
+    public async find(userID: string) {
+        const userInv = await InventoryModel.findOne({ userID });
 
         if (userInv) {
             return userInv;
@@ -20,7 +20,6 @@ class InventoryClass {
         }
     }
 
-
     /**
      * Adds itemID to userID's inventory
      *
@@ -28,7 +27,7 @@ class InventoryClass {
      * @param {number} itemID
      * @memberof InventoryClass
      */
-    async addItem(userID: string, itemID: string) {
+    public async addItem(userID: string, itemID: string) {
         const userInv = await this.find(userID);
 
         if ((userInv as any).items.has(itemID)) {
@@ -40,7 +39,7 @@ class InventoryClass {
         return await userInv.save();
     }
 
-    async removeItem(userID: string, itemID: string) {
+    public async removeItem(userID: string, itemID: string) {
         const userInv = await this.find(userID);
 
         if (!(userInv as any).items.has(itemID)) {
@@ -52,8 +51,8 @@ class InventoryClass {
         return await userInv.save();
     }
 
-    useItem(userID: string, itemID: string) {
-
+    public async useItem(userID: string, itemID: string) {
+        const userInv = await this.find(userID).then((i: any) => i.inventory);
     }
 
     /**
@@ -66,7 +65,7 @@ class InventoryClass {
      */
     private async create(userID: string) {
         const userInv = new InventoryModel({
-            userID: userID,
+            userID,
             items: new Map()
         });
 

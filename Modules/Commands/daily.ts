@@ -16,10 +16,9 @@ export const daily: MoustacheCommand = {
                         color: config.embedColor
                     },
                 };
-        
+
                 return channel.createMessage(embed);
-            }
-            catch (e) {
+            } catch (e) {
                 console.log(e);
             }
         };
@@ -41,4 +40,4 @@ export const daily: MoustacheCommand = {
         fullDescription: 'Gives you 1-5 points every 24 hours. You will be reminded when 24 hours have passed.',
         usage: ''
     }
-}
+};

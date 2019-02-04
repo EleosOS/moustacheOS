@@ -16,8 +16,8 @@ const TransactionMessages = [
 async function rollVictim() {
     const count = await PointsModel.where('points').gt(10).estimatedDocumentCount();
     const rand = Math.floor(Math.random() * count);
-    const victimPoints = await PointsModel.findOne().skip(rand)
-    
+    const victimPoints = await PointsModel.findOne().skip(rand);
+
     return victimPoints;
 }
 
@@ -35,7 +35,6 @@ export const FunctionRobberyBook: MoustacheItem = {
             Transactions.substract((victimPoints as any).id, robbedPoints, 'Stolen by ???');
             Transactions.add(msg.author.id, robbedPoints, TransactionMessages[Math.floor(Math.random() * TransactionMessages.length)]);
 
-            
         } else {
             Transactions.transfer((victimPoints as any).id, msg.author.id, robbedPoints, `<@${msg.author.id}> stole from <@${(victimPoints as any).id}>`);
         }

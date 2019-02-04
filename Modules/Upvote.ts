@@ -71,8 +71,7 @@ class UpvoteClass {
                     embed.embed.footer.text = 'This reminder was set manually by yourself or a ruler.'
                 }
                 return channel.createMessage(embed);
-            }
-            catch (e) {
+            } catch (e) {
                 console.log(e);
             }
         };

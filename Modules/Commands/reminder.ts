@@ -34,7 +34,7 @@ const subUpvote: MoustacheCommand = {
         fullDescription: 'Set a reminder to upvote for yourself (or for a specified user if a Ruler is using the command).',
         usage: '`userID`'
     }
-}
+};
 
 const subRemoveAll: MoustacheCommand = {
     execute: async (msg) => {
@@ -48,7 +48,7 @@ const subRemoveAll: MoustacheCommand = {
         fullDescription: 'Removes all for you set reminders. **This cannot be undone.**',
         usage: ''
     }
-}
+};
 
 export const reminder: MoustacheCommand = {
     execute: async () => {
@@ -62,4 +62,3 @@ export const reminder: MoustacheCommand = {
     },
     subcommands: [subRemoveAll, subUpvote]
 };
-

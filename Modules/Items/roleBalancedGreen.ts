@@ -6,4 +6,4 @@ export const RoleBalancedGreen: MoustacheItem = {
     type: 'role',
     price: 20,
     roleID: '530055621098078238'
-}
+};

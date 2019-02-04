@@ -6,4 +6,4 @@ export const RoleHairyBlonde: MoustacheItem = {
     type: 'role',
     price: 20,
     roleID: '530024843580801025'
-}
+};

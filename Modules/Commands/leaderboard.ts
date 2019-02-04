@@ -5,9 +5,8 @@ import { PointsModel } from '../../other/';
 export const leaderboard: MoustacheCommand = {
     execute: async (msg) => {
         const data = await PointsModel.find({}).sort('-points').limit(10);
-        const fields: Object[] = [];
+        const fields: object[] = [];
         const ease = bot.guilds.get('365236789855649814');
-        
 
         data.forEach((element: any, index) => {
             const member = ease!.members.find((u: any) => u.id === element.userID);
@@ -23,14 +22,14 @@ export const leaderboard: MoustacheCommand = {
                     value: `Points: ${element.points}`
                 });
             }
-        })
+        });
 
         const embed = {
             embed: {
                 color: config.embedColor,
-                fields: fields
+                fields
             }
-        }
+        };
 
         return bot.createMessage(msg.channel.id, embed);
     },
@@ -40,4 +39,4 @@ export const leaderboard: MoustacheCommand = {
         fullDescription: 'Shows the top 10 users with the most points.',
         usage: ''
     }
-}
+};

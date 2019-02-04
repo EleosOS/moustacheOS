@@ -26,7 +26,7 @@ class PointsClass {
      * @memberof Points
      */
     public async find(userID: string, noCreate: boolean) {
-        const userPoints = await PointsModel.findOne({ userID: userID });
+        const userPoints = await PointsModel.findOne({ userID });
 
         if (userPoints) {
             return userPoints;
@@ -65,7 +65,7 @@ class PointsClass {
                 this.rankcheck(userPoints)
             ]);
 
-            saved = finish[0]
+            saved = finish[0];
         } catch (err) {
             console.log(err);
             saved = null;
@@ -85,7 +85,7 @@ class PointsClass {
     private async create(userID: string) {
         const userPoints = new PointsModel({
             points: 0,
-            userID: userID,
+            userID,
         });
 
         return await userPoints.save();
@@ -120,7 +120,7 @@ class PointsClass {
             }
 
             await member.addRole(ranks.coal.id, `Earned ${ranks[rank].points} points`);
-        }
+        };
 
         if (userPoints.points > ranks.coal.points) {
             giveRole('coal');

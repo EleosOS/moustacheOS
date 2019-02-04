@@ -8,11 +8,11 @@ import { RoleHairyBlonde } from './roleHairyBlonde';
 import { RoleUpvoterPlus } from './roleUpvoterPlus';
 
 export interface MoustacheItem {
-    id: String;
-    name: String;
+    id: string;
+    name: string;
     type: 'role' | 'function';
-    price: Number;
-    roleID?: String;
+    price: number;
+    roleID?: string;
     execute?: (msg: Message, args?: string[]) => Promise<void>;
 }
 
@@ -22,10 +22,9 @@ const FunctionItemsArr = [
     FunctionRobberyBook
 ];
 
-FunctionItemsArr.forEach((item, i) => {
+FunctionItemsArr.forEach((item) => {
     FunctionItems.set(item.name, item);
-})
-
+});
 
 export const RoleItems = new Map();
 const RoleItemsArr = [
@@ -36,6 +35,6 @@ const RoleItemsArr = [
     RoleUpvoterPlus
 ];
 
-RoleItemsArr.forEach((item, i) => {
+RoleItemsArr.forEach((item) => {
     RoleItems.set(item.name, item);
-})
+});

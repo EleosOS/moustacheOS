@@ -24,7 +24,7 @@ export interface MoustacheCommand {
 }
 
 interface MoustacheCommandOptions extends CommandOptions {
-    description: string,
-    fullDescription: string,
-    usage: string,
+    description: string;
+    fullDescription: string;
+    usage: string;
 }

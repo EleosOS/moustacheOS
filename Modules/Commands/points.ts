@@ -42,15 +42,15 @@ export const points: MoustacheCommand = {
         const data = await Points.find(args[0], true);
         const ease = bot.guilds.get('365236789855649814');
         const member = ease!.members.find((u: any) => u.id === args[0]);
-        let string = `${member.user.username}#${member.discriminator} currently has ${(data as any).points} points.`
-        
+        let msgString = `${member.user.username}#${member.discriminator} currently has ${(data as any).points} points.`
+
         if (!data) {
             return 'That user could not be found.';
         } else if (!member) {
-            string = `???: ${args[0]} currently has ${(data as any).points} points.`
+            msgString = `???: ${args[0]} currently has ${(data as any).points} points.`
         }
 
-        return bot.createMessage(msg.channel.id, string);
+        return bot.createMessage(msg.channel.id, msgString);
     },
     label: 'points',
     options: {
@@ -59,4 +59,4 @@ export const points: MoustacheCommand = {
         usage: '`userID`'
     },
     subcommands: [subPointsChange]
-}
+};

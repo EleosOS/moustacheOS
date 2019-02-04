@@ -6,4 +6,4 @@ export const RoleUpvoterPlus: MoustacheItem = {
     type: 'role',
     price: 50,
     roleID: '539391005707862036'
-}
+};
