@@ -2,7 +2,7 @@ import { MoustacheItem } from './';
 import { Transactions } from '../';
 import { PointsModel } from '../../other';
 
-const TransactionMessages = [
+const transactionMessages = [
     'Won in a lottery?',
     'Special upvoter reward?',
     'Borrowed from a friend?',
@@ -21,10 +21,9 @@ async function rollVictim() {
     return victimPoints;
 }
 
-export const FunctionRobberyBook: MoustacheItem = {
+export const functionRobberyBook: MoustacheItem = {
     id: 'robberybook',
     name: 'Le Soele\'s "How to rob your friend\'s internet points"',
-    type: 'function',
     price: 35,
     execute: async (msg) => {
         const victimPoints = await rollVictim();

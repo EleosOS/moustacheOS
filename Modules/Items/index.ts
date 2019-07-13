@@ -1,40 +1,32 @@
 import { Message } from 'eris';
-import { FunctionFoo } from './functionFoo';
-import { FunctionRobberyBook } from './functionRobberyBook';
-import { RoleBalancedGreen } from './roleBalancedGreen';
-import { RoleBravePurple } from './roleBravePurple';
-import { RoleBrilliantRed } from './roleBrilliantRed';
-import { RoleHairyBlonde } from './roleHairyBlonde';
-import { RoleUpvoterPlus } from './roleUpvoterPlus';
+import { functionFoo } from './functionFoo';
+import { functionRobberyBook } from './functionRobberyBook';
+import { roleBalancedGreen } from './roleBalancedGreen';
+import { roleBravePurple } from './roleBravePurple';
+import { roleBrilliantRed } from './roleBrilliantRed';
+import { roleHairyBlonde } from './roleHairyBlonde';
+import { roleUpvoterPlus } from './roleUpvoterPlus';
 
 export interface MoustacheItem {
     id: string;
     name: string;
-    type: 'role' | 'function';
     price: number;
     roleID?: string;
     execute?: (msg: Message, args?: string[]) => Promise<void>;
 }
 
-export const FunctionItems = new Map();
-const FunctionItemsArr = [
-    FunctionFoo,
-    FunctionRobberyBook
+const itemsArr = [
+    functionFoo,
+    functionRobberyBook,
+    roleBalancedGreen,
+    roleBravePurple,
+    roleBrilliantRed,
+    roleHairyBlonde,
+    roleUpvoterPlus
 ];
 
-FunctionItemsArr.forEach((item) => {
-    FunctionItems.set(item.name, item);
-});
+export const items = new Map();
 
-export const RoleItems = new Map();
-const RoleItemsArr = [
-    RoleBalancedGreen,
-    RoleBravePurple,
-    RoleBrilliantRed,
-    RoleHairyBlonde,
-    RoleUpvoterPlus
-];
-
-RoleItemsArr.forEach((item) => {
-    RoleItems.set(item.name, item);
+itemsArr.forEach((item) => {
+    items.set(item.id, item);
 });

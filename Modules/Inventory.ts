@@ -1,5 +1,6 @@
-import { FunctionItems, RoleItems } from './Items';
+import { FunctionItems, RoleItems, MoustacheItem } from './Items';
 import { InventoryModel } from '../other/index';
+import { Message } from 'eris';
 
 class InventoryClass {
 
@@ -51,8 +52,18 @@ class InventoryClass {
         return await userInv.save();
     }
 
-    public async useItem(userID: string, itemID: string) {
+    public async useItem(userID: string, itemID: string, msg: Message, args?: string[]) {
         const userInv = await this.find(userID).then((i: any) => i.inventory);
+        const item: MoustacheItem = userInv.get(itemID);
+
+        if (!item) { return false; }
+
+        if (item.execute) {
+            item.execute(msg, args);
+            userInv.delete(itemID);
+        } else if (item.roleID) {
+            
+        }
     }
 
     /**
